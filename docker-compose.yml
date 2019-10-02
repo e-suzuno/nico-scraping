@@ -1,0 +1,31 @@
+version: "3"
+services:
+
+  db:
+    container_name: nicomanga-mysql
+    image: "mysql:8.0.11"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./docker/db/mysql-confd:/etc/mysql/conf.d
+      - ./docker/db/docker-entrypoint-initdb.d/:/docker-entrypoint-initdb.d
+      - nicomanga-db:/var/lib/mysql
+
+
+  php:
+    container_name: nicomanga-web01
+    build:
+      context: ./docker/web-01/
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+      - "443:443"
+    links:
+      - "db"
+    volumes:
+      - ./src/:/var/www/
+
+volumes:
+  nicomanga-db:
