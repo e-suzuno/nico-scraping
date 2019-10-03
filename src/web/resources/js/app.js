@@ -29,8 +29,6 @@ window.Vue = require('vue');
 
 
 
-import VuePaginate from 'vue-paginate';
-
 Vue.component('pagination', require('laravel-vue-pagination'));
 Vue.component('nico-comic-list', require('./components/nicoComic/nicoComicList.vue').default);
 Vue.component('nico-comic-item', require('./components/nicoComic/nicoComicItem.vue').default);

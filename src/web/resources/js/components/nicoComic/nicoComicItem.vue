@@ -3,8 +3,9 @@
     <div class="nico-comic-list__item">
 
         <div class="nico-comic-list__item__title">
-            <a :href="item.url"> >>> </a>
-            {{item.title}}
+            <a :href="item.url">[ {{item.nico_no}} ]
+                {{item.title}}
+            </a>
         </div>
         <div class="nico-comic-list__item__update_at">
             最終確認：{{item.updated_at}}
@@ -18,9 +19,13 @@
             <span class="badge badge-primary badge-pill">{{item.story_number}}話</span>
             [ <span class="comic_start_date">{{item.comic_start_date}}</span> => <span
             class="comic_update_date">{{item.comic_update_date}}</span> ]
+
         </div>
         <div class="nico-comic-list__item__description">
             {{item.description}}
+        </div>
+        <div class="nico-comic-list__item__update-speed">
+            更新頻度:{{item.update_speed}}
         </div>
     </div>
 </template>

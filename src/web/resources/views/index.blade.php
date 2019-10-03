@@ -58,8 +58,8 @@
 
             <div class="form-group">
                 <div class="row">
-                    <label for="story_number_from" class="col-sm-3  control-label">話数制限</label>
-                    <div class="col-sm-9">
+                    <label for="story_number_from" class="col-sm-3  control-label">掲載数</label>
+                    <div class="col-sm-4">
                         <div class="input-group">
                             <input type="number" name="story_number_from" id="story_number_from" class="form-control"
                                    v-model="form.story_number_from">
@@ -74,7 +74,7 @@
 
             <div class="form-group">
                 <div class="row">
-                    <label class="col-sm-3  control-label">ニコのコミック番号</label>
+                    <label class="col-sm-3  control-label">コミック番号</label>
                     <div class="col-sm-4">
                         <div class="input-group">
                             <input type="number" name="nico_no_from" id="nico_no_from" class="form-control"
@@ -113,7 +113,13 @@
                         </button>
 
 
-                        <a href="/">リセット</a>
+                        <button class="btn btn-warning" @click="initParams">
+                            リセット
+                        </button>
+
+                        <button class="btn btn-dark" @click="recommendedSearch">
+                            <i class="fa fa-btn fa-plus"></i> おすすめ検索
+                        </button>
                     </div>
                 </div>
             </div>
@@ -129,13 +135,13 @@
             <div v-show="loading" class="loader">Now loading...</div>
             <div v-show="!loading" class="itemContainer">
 
+                <span>( 全 @{{ laravelData.total }}件 )</span>
+
                 <pagination :data="laravelData" @pagination-change-page="getResults"
-                            :limit="4">
+                            :limit="3">
                     <span slot="prev-nav">&lt; 前へ</span>
                     <span slot="next-nav">次へ &gt;</span>
                 </pagination>
-
-                <span>( 全 @{{ laravelData.total }}件 )</span>
 
                 <nico-comic-list
                     :value="laravelData.data"
@@ -186,15 +192,17 @@
                     'title': "",
                     'description': "",
                     'tags': [],
-                    'story_number_from': "",
+                    'story_number_from': 1,
                     'nico_no_from': '',
                     'nico_no_to': '',
                     'order': 'comic_update_date_desc',
-                }
+                },
+                "init": {},
             },
             created: function () {
                 this.$nextTick(function () {
                     // DOM が更新された後に呼ぶ
+                    this.init = {...this.form};
                     this.onSearch();
                 })
             },
@@ -207,8 +215,11 @@
                 },
             },
             methods: {
-                onSearch: function (uri) {
+                onSearch: function () {
                     this.post(this.uri);
+                },
+                initParams: function () {
+                    this.form = {...this.init };
                 },
                 post: function (uri) {
                     this.loading = true;
@@ -220,7 +231,6 @@
                         this.loading = false;
 
                     }).catch(error => {
-                        7
                         alert("読み込みに失敗しました");
                         // this.$emit('send-error', error);
                     })
@@ -235,6 +245,21 @@
                     } else if (this.select_type_toggle == "checkbox") {
                         this.select_type_toggle = "select";
                     }
+                },
+
+
+                // おすすめ検索（謎）
+                recommendedSearch() {
+                    this.form = {
+                        'title': "",
+                        'description': "",
+                        'tags': [7],
+                        'story_number_from': 15,
+                        'nico_no_from': '',
+                        'nico_no_to': '',
+                        'order': 'comic_update_date_desc',
+                    }
+                    this.onSearch();
                 }
             }
         });
