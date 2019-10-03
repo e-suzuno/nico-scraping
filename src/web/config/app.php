@@ -179,6 +179,9 @@ return [
         App\Providers\RepositoryServiceProvider::class,
 
 
+        //Seederの逆生成用
+        Orangehill\Iseed\IseedServiceProvider::class,
+
     ],
 
     /*
