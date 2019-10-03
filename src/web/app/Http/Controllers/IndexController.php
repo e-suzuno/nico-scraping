@@ -52,6 +52,15 @@ class IndexController extends Controller
     public function index(Request $request)
     {
         $tagList = $this->tagRepository->getAll();
+
+
+        $tagList = $tagList->filter(function ($tag, $key) {
+            return $tag->tag_type_id !== 100;
+        })->sortBy('tag_type_id')->values()->all();
+
+
+
+
         return view("index", ["tagList" => $tagList]);
     }
 

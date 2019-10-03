@@ -133,3 +133,28 @@ function getNicoMangaTargetPage($no)
 }
 
 
+/**
+ * @param $title
+ * @param $description
+ * @return array
+ */
+function autoTagCheck($title, $description)
+{
+    $tags = [];
+
+    $target_string = $title . $description;
+    $search_tags = [
+        "異世界",
+        "ファンタジー",
+        "ロボット",
+        "エロ",
+    ];
+
+    foreach ($search_tags as $label) {
+        if (mb_strpos($target_string, $label, 0, "UTF-8") !== false) {
+            $tags[] = getTagId($label, 4);
+        };
+    }
+
+    return $tags;
+}

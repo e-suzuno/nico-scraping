@@ -90,8 +90,15 @@ class NicoScraping extends Command
         }
         $tags = [];
 
-        $tags[] = getTagId($data['category'] , 1);
-        $tags[] = getTagId($data['official_title'] , 2);
+        $tags[] = getTagId($data['category'], 1);
+        $tags[] = getTagId($data['official_title'], 2);
+
+
+        //文章からのオートタグ
+        $auto_tags = autoTagCheck($data['title'], $data['description']);
+        foreach ($auto_tags as $auto_tag) {
+            $tags[] = $auto_tag;
+        }
 
 
         $data['tags_json'] = $tags;
@@ -117,6 +124,12 @@ class NicoScraping extends Command
         }
 
         return;
+    }
+
+
+    public function autoTagCheck()
+    {
+
     }
 }
 

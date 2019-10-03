@@ -1,8 +1,6 @@
 @extends('layouts/app') @section('content')
 
-    <!--
-{{ app(\App\Repositories\NicoComic\NicoComicRepositoryInterface::class)->getMaxNicoNo() }} 番号まで取得してるよ
--->
+
     <div class="card">
         <div class="card-body">
 
@@ -165,7 +163,7 @@
         'use strict';
 
 
-        const tags = {!! $tagList !!};
+        const tags = {!! json_encode($tagList) !!};
         const order_select_options = [
             {id: 'comic_update_date_desc', name: '更新順',},
             {id: 'nico_no_desc', name: 'NO 降順',},
@@ -260,7 +258,8 @@
                         'order': 'comic_update_date_desc',
                     }
                     this.onSearch();
-                }
+                },
+
             }
         });
 

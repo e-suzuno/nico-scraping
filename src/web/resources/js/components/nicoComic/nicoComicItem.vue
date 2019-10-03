@@ -12,14 +12,13 @@
         </div>
         <div class="nico-comic-list__item__tags">
             <template v-for="(tag , tagindex) in item.has_tags">
-                <span class="nico-comic-list__item__tag badge badge-secondary">{{ tag.label }}</span>
+                <span :class="`nico-comic-list__item__tag badge ` + tag_class(tag) ">{{ tag.label }}</span>
             </template>
         </div>
         <div class="nico-comic-list__item__info">
             <span class="badge badge-primary badge-pill">{{item.story_number}}話</span>
             [ <span class="comic_start_date">{{item.comic_start_date}}</span> => <span
             class="comic_update_date">{{item.comic_update_date}}</span> ]
-
         </div>
         <div class="nico-comic-list__item__description">
             {{item.description}}
@@ -39,7 +38,16 @@
         data() {
             return {}
         },
-        methods: {}
+        methods: {
+
+            tag_class(tag) {
+                if (tag.tag_type_id == 4) {
+                    return "badge-success";
+                }
+                return "badge-secondary";
+            }
+
+        }
     }
 </script>
 

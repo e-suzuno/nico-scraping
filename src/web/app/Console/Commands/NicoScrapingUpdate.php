@@ -95,6 +95,14 @@ class NicoScrapingUpdate extends Command
 
         $tags[] = getTagId($data['category'], 1);
         $tags[] = getTagId($data['official_title'], 2);
+
+        //文章からのオートタグ
+        $auto_tags = autoTagCheck($data['title'], $data['description']);
+        foreach ($auto_tags as $auto_tag) {
+            $tags[] = $auto_tag;
+        }
+
+
         $data['tags_json'] = $tags;
         $attribute = collect($data)->only([
             "title",
