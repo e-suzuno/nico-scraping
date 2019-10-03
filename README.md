@@ -2,7 +2,7 @@
 
 # 
 
-## 環境
+## 開発環境
 
 | | |
 | --- | ---|
@@ -16,13 +16,6 @@
 | doeckr MySQL | 192.168.99.100:3306  |
 
 
-
-
-## ディレクトリ構成
-
-```
-
-```
 
 
 
@@ -88,8 +81,10 @@ $ docker exec -it nicomanga-web01 /bin/sh
 
  リフレッシュ
 ```
-# php artisan migrate:refresh --seed
+$ docker exec -it nicomanga-web01 bash -c "cd /var/www/web/ && php artisan migrate:refresh --seed"
 ```
+
+
 
 全テーブル削除
 ```
@@ -101,10 +96,19 @@ $ docker exec -it nicomanga-web01 /bin/sh
 
 no順にスクレイピング 
 ```
-# php artisan scraping:run
-
+$ docker exec -it nicomanga-web01 bash -c "cd /var/www/web/ && php artisan scraping:run"
 ```
+
 すでに取得済みデータを更新
 ```
-# php artisan scraping:update
+$ docker exec -it nicomanga-web01 bash -c "cd /var/www/web/ && php artisan scraping:update"
 ```
+
+
+# seederの吐き出し用コマンド
+DBにあるテーブルをSeederとして吐き出しのコマンド
+```
+$ docker exec -it nicomanga-web01 bash -c "cd /var/www/web/ && php artisan iseed {table}"
+```
+
+

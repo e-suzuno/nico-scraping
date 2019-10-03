@@ -13,6 +13,9 @@ class DatabaseSeeder extends Seeder
     {
 
         $this->call(TagsTableSeeder::class);
+        $this->call(TagTypesTableSeeder::class);
+
+        $this->call(NicoComicsTableSeeder::class);
 
     }
 }
