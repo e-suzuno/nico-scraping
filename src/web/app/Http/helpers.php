@@ -152,7 +152,7 @@ function autoTagCheck($title, $description)
 
     foreach ($search_tags as $label) {
         if (mb_strpos($target_string, $label, 0, "UTF-8") !== false) {
-            $tags[] = getTagId($label, 4);
+            $tags[] = getTagId($label, \App\Constants\TagTypeConstant::AUTO_TAG);
         };
     }
 

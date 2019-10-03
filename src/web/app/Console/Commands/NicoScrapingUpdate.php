@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Constants\TagTypeConstant;
 use App\Repositories\NicoComic\NicoComicRepositoryInterface as NicoComicRepository;
 use App\Repositories\Tag\TagRepositoryInterface as TagRepository;
 use Illuminate\Console\Command;
@@ -93,8 +94,8 @@ class NicoScrapingUpdate extends Command
         }
 
 
-        $tags[] = getTagId($data['category'], 1);
-        $tags[] = getTagId($data['official_title'], 2);
+        $tags[] = getTagId($data['category'], TagTypeConstant::CATEGORY);
+        $tags[] = getTagId($data['official_title'], TagTypeConstant::OFFICIAL_COMIC);
 
         //文章からのオートタグ
         $auto_tags = autoTagCheck($data['title'], $data['description']);

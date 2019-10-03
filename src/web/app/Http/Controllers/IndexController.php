@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Constants\TagTypeConstant;
 use App\Models\NicoComics;
 use App\Repositories\NicoComic\NicoComicRepositoryInterface AS NicoComicRepository;
 use App\Repositories\Tag\TagRepositoryInterface as TagRepository;
@@ -55,7 +56,7 @@ class IndexController extends Controller
 
 
         $tagList = $tagList->filter(function ($tag, $key) {
-            return $tag->tag_type_id !== 100;
+            return $tag->tag_type_id !== TagTypeConstant::OFFICIAL_COMIC;
         })->sortBy('tag_type_id')->values()->all();
 
 
