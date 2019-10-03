@@ -1,0 +1,51 @@
+
+.nico-comic-list {
+    padding: 0;
+    list-style: none;
+}
+
+.nico-comic-list__item {
+    list-style: none;
+    padding: 5px;
+    border-bottom: 1px solid #CCCCCC;
+
+    display: grid;
+    grid-template-columns: 300px 1fr 1fr 200px;
+    grid-template-areas:
+        " title title title update_at"
+        " info tags tags tags"
+        " description description description description";
+
+}
+
+.nico-comic-list__item__title {
+    grid-area: title;
+    font-weight: bold;
+}
+
+.nico-comic-list__item__update_at {
+    grid-area: update_at;
+    font-size: 0.8rem;
+
+}
+
+.nico-comic-list__item__tags {
+    grid-area: tags ;
+}
+
+.nico-comic-list__item__info {
+    grid-area: info ;
+}
+
+.nico-comic-list__item__description {
+    grid-area: description  ;
+    border-radius: 5px;
+    padding: 5px;
+    font-size: 0.8rem;
+}
+
+
+
+.nico-comic-list__item__tag{
+    margin-right: 2px;
+}

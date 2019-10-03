@@ -74,8 +74,6 @@ $ docker exec -it nicomanga-web01 /bin/sh
 # npm cache verify
 # npm cache clean --force
 # npm install --no-bin-links --no-optional --stack-size=6500
-
-
 ```
 
 
@@ -101,7 +99,7 @@ $ docker exec -it nicomanga-web01 /bin/sh
 
 # ニコニコへのスクレイピング 
 
-no順にスレイピング
+no順にスクレイピング 
 ```
 # php artisan scraping:run
 

@@ -22,4 +22,7 @@ Route::get('/about', 'IndexController@about')->name("about");
 
 
 
+Route::post('/search-api', 'NicoComicController@search')->name("search-api");
+
+
 

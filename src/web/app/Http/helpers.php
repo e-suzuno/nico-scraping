@@ -27,6 +27,10 @@ function getNicoMangaListPage($url)
 }
 
 
+/**
+ * @param $no
+ * @return string
+ */
 function comic_url($no)
 {
     return "http://seiga.nicovideo.jp/comic/{$no}";
@@ -61,9 +65,10 @@ function getTagId($label, $tag_type_id)
     }
 }
 
-
-
-
+/**
+ * @param $no
+ * @return array|bool
+ */
 function getNicoMangaTargetPage($no)
 {
 
@@ -111,7 +116,6 @@ function getNicoMangaTargetPage($no)
         $story_number = (int)$match[1];
     }
 
-
     $data = [
         "title" => trim($main_title),
         "author" => trim($author),
@@ -123,7 +127,6 @@ function getNicoMangaTargetPage($no)
         "comic_update_date" => $comic_update_date,
         "story_number" => $story_number,
         "url" => $url
-
     ];
 
     return $data;

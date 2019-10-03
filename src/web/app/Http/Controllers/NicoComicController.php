@@ -9,10 +9,10 @@ use Illuminate\Http\Request;
 
 
 /**
- * Class IndexController
+ * Class NicoComicController
  * @package App\Http\Controllers
  */
-class IndexController extends Controller
+class NicoComicController extends Controller
 {
     //
 
@@ -47,20 +47,39 @@ class IndexController extends Controller
 
     /**
      * @param Request $request
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return mixed
      */
-    public function index(Request $request)
+    public function search(Request $request)
     {
-        $tagList = $this->tagRepository->getAll();
-        return view("index", ["tagList" => $tagList]);
+
+        try {
+            $input = $request->all();
+            $select = $this->nicoComicRepository->find($input);
+
+            $order = $input['order'] ?? "nico_no_desc";
+
+            if ($order === "comic_update_date_desc") {
+                $select->orderBy('comic_update_date', 'desc');
+            } else if ($order === "nico_no_desc") {
+                $select->orderBy('nico_no', 'desc');
+            } else if ($order === "story_number_desc") {
+                $select->orderBy('story_number', 'desc');
+            }
+
+            $nicoComics = $select->paginate(15);
+
+            $response = \Response::json($nicoComics, 200);
+        } catch (\Exception $e) {
+            $response = \Response::json(array(
+                'status' => false,
+                'message' => $e->getMessage()
+            ), 400);
+        }
+        return $response;
     }
 
 
-    /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function about()
-    {
-        return view("about");
-    }
+
+
+
 }
