@@ -24,5 +24,8 @@ Route::get('/about', 'IndexController@about')->name("about");
 
 Route::post('/search-api', 'NicoComicController@search')->name("search-api");
 
+Route::post('/add-tag-api', 'NicoComicController@addTag')->name("add-tag-api");
+Route::get('/add-tag-api', 'NicoComicController@addTag')->name("add-tag-api");
+
 
 

@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Constants\TagTypeConstant;
+use App\Helpers\NicoScrapingHelper;
 use App\Repositories\NicoComic\NicoComicRepositoryInterface as NicoComicRepository;
 use App\Repositories\Tag\TagRepositoryInterface as TagRepository;
 use Illuminate\Console\Command;
@@ -85,53 +86,15 @@ class NicoScraping extends Command
      */
     protected function createData($no)
     {
-        $data = getNicoMangaTargetPage($no);
+        $data = NicoScrapingHelper::manga_updated_url($no);
         if ($data === false) {
             return false;
         }
-        $tags = [];
-
-        $tags[] = getTagId($data['category'], TagTypeConstant::CATEGORY);
-        $tags[] = getTagId($data['official_title'], TagTypeConstant::OFFICIAL_COMIC);
-
-
-        //文章からのオートタグ
-        $auto_tags = autoTagCheck($data['title'], $data['description']);
-        foreach ($auto_tags as $auto_tag) {
-            $tags[] = $auto_tag;
-        }
-
-
-        $data['tags_json'] = $tags;
-        $attribute = collect($data)->only([
-            "title",
-            "author",
-            "description",
-            "nico_no",
-            "comic_start_date",
-            "comic_update_date",
-            "story_number",
-            "tags_json"
-        ])->toArray();
-
-
-        $nicoComic = $this->nicoComicRepository->findByNicoNo($attribute["nico_no"]);
-        if ($nicoComic) {
-            //更新
-
-        } else {
-            //新規作成
-            $this->nicoComicRepository->create($attribute);
-        }
-
+        $this->nicoComicRepository->save($data);
         return;
     }
 
 
-    public function autoTagCheck()
-    {
-
-    }
 }
 
 

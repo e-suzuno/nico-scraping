@@ -79,7 +79,33 @@ class NicoComicController extends Controller
     }
 
 
+    /**
+     * @param Request $request
+     * @return mixed
+     */
+    public function addTag(Request $request)
+    {
+        try {
+            $input = $request->all();
+            $this->nicoComicRepository->addTag($input['no'], $input['tag_id']);
 
+            $nicoComic = $this->nicoComicRepository->findByNicoNo($input['no']);
+
+            $response = \Response::json(array(
+                'status' => true,
+                'message' => "success",
+                'item' => $nicoComic,
+            ), 200);
+
+        } catch (\Exception $e) {
+            $response = \Response::json(array(
+                'status' => false,
+                'message' => $e->getMessage()
+            ), 400);
+        }
+        return $response;
+
+    }
 
 
 }

@@ -87,37 +87,11 @@ class NicoScrapingUpdate extends Command
      */
     protected function updateData($id, $nico_no)
     {
-
         $data = getNicoMangaTargetPage($nico_no);
         if ($data === false) {
             return false;
         }
-
-
-        $tags[] = getTagId($data['category'], TagTypeConstant::CATEGORY);
-        $tags[] = getTagId($data['official_title'], TagTypeConstant::OFFICIAL_COMIC);
-
-        //文章からのオートタグ
-        $auto_tags = autoTagCheck($data['title'], $data['description']);
-        foreach ($auto_tags as $auto_tag) {
-            $tags[] = $auto_tag;
-        }
-
-
-        $data['tags_json'] = $tags;
-        $attribute = collect($data)->only([
-            "title",
-            "author",
-            "description",
-            "nico_no",
-            "comic_start_date",
-            "comic_update_date",
-            "story_number",
-            "tags_json"
-        ])->toArray();
-
-
-        $this->nicoComicRepository->update($id, $attribute);
+        $this->nicoComicRepository->save($data);
         return;
     }
 }

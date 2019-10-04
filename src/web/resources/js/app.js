@@ -27,6 +27,10 @@ window.Vue = require('vue');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
+import config from './config'
+window.config = config;
+//console.log(config);
+
 
 
 Vue.component('pagination', require('laravel-vue-pagination'));
