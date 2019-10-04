@@ -40,7 +40,7 @@ class NicoScraping extends Command
     /**
      * @var int
      */
-    public $scraping_count = 2000;
+    public $scraping_count = 20;
 
     /**
      * NicoScraping constructor.

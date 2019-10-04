@@ -19,6 +19,10 @@
                 if (this.tag.tag_type_id == 3) {
                     return "badge-info";
                 }
+
+                if (this.tag.tag_type_id == 100) {
+                    return "badge-official-comic";
+                }
                 return "badge-secondary";
             },
         }

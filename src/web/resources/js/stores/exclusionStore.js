@@ -15,9 +15,12 @@ export default {
     addExclusionList(nico_no) {
         let list = this.getExclusionList();
         list.push(nico_no);
-        localStorage.setItem('exclusion-list', JSON.stringify(list));
+        localStorage.setItem(this.state.key, JSON.stringify(list));
         return;
     },
-
+    remove() {
+        localStorage.removeItem(this.state.key);
+        return;
+    },
 
 }

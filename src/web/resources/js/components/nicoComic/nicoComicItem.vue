@@ -10,6 +10,10 @@
                 <a :href="data.url">[ {{data.nico_no}} ]
                     {{data.title}}
                 </a>
+                <button @click="pushFavorite()" type="button" class="btn btn-success rounded-circle p-0"
+                        style="width: 1.1rem;height: 1.1rem;font-size: 0.5rem;">＋</button>
+                <button @click="addExclusionList()" type="button" class="btn btn-danger rounded-circle p-0"
+                         style="width: 1.1rem; height: 1.1rem;font-size: 0.5rem;">‐</button>
             </div>
             <div class="nico-comic-list__item__update_at">
                 最終確認：{{data.updated_at}}
@@ -18,13 +22,10 @@
                 <template v-for="(tag , tagindex) in data.has_tags">
                     <nico-comic-tag :tag="tag"></nico-comic-tag>
                 </template>
-                <span @click="pushFavorite()" class="btn-outline-success">＋お気に入り</span>
-                <span @click="addExclusionList()" class="btn-outline-danger"> - 除外ボタン</span>
             </div>
             <div class="nico-comic-list__item__info">
                 <span class="badge badge-primary badge-pill">{{data.story_number}}話</span>
-                [ <span class="comic_start_date">{{data.comic_start_date}}</span> => <span
-                class="comic_update_date">{{data.comic_update_date}}</span> ]
+                [ <span class="comic_start_date">{{data.comic_start_date}}</span> => <span class="comic_update_date">{{data.comic_update_date}}</span> ]
             </div>
             <div class="nico-comic-list__item__description">
                 {{data.description}}
@@ -57,8 +58,11 @@
         methods: {
             addExclusionList() {
                 //除外
-                exclusionStore.addExclusionList(this.data.nico_no);
-                this.exclusion = true;
+                if (confirm("除外しますか？") === true) {
+                    alert("除外リストに追加しました。");
+                    exclusionStore.addExclusionList(this.data.nico_no);
+                    this.exclusion = true;
+                }
             },
             pushFavorite() {
                 let params = {
