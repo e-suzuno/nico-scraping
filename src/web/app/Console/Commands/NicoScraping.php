@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\Constants\TagTypeConstant;
 use App\Helpers\NicoScrapingHelper;
+use App\Models\Config;
 use App\Repositories\NicoComic\NicoComicRepositoryInterface as NicoComicRepository;
 use App\Repositories\Tag\TagRepositoryInterface as TagRepository;
 use Illuminate\Console\Command;
@@ -37,6 +38,11 @@ class NicoScraping extends Command
 
 
     /**
+     * @var int
+     */
+    public $scraping_count = 100;
+
+    /**
      * NicoScraping constructor.
      * @param NicoComicRepository $nicoComicRepository
      * @param TagRepository $tagRepository
@@ -62,36 +68,30 @@ class NicoScraping extends Command
         $this->info('NicoScraping run');
 
 
-        $from = $this->nicoComicRepository->getMaxNicoNo();
-        if (!$from) {
-            $from = 1;
-        }
-        $count = 1000;
+        $config = \App\Models\Config::all()->first();
+        $from = $config->scraping_num;
+        $last_no = $from;
+
+
+        $count = $this->scraping_count;
 
         $bar = $this->output->createProgressBar($count);
         $bar->start();
         $to = $from + $count;
         for ($i = $from; $i < $to; $i++) {
-            $this->createData($i);
+            if ($this->nicoComicRepository->saveNicoScraping($i) === TRUE) {
+                $last_no = $i;
+            }
             $bar->advance();
         }
         $bar->finish();
+
+
+        $config->scraping_num = $last_no;
+        $config->save();
+
+
         $this->info('ok');
-    }
-
-
-    /**
-     * @param $no
-     * @return bool|void
-     */
-    protected function createData($no)
-    {
-        $data = NicoScrapingHelper::manga_updated_url($no);
-        if ($data === false) {
-            return false;
-        }
-        $this->nicoComicRepository->save($data);
-        return;
     }
 
 

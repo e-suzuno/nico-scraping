@@ -226,7 +226,6 @@
 
 
                     let params = {
-                        ...this.form,
                         "exclusionList": exclusionList
                     };
 
@@ -238,34 +237,10 @@
 
                     }).catch(error => {
                         alert("読み込みに失敗しました");
-                        // this.$emit('send-error', error);
+
                     })
                 },
-                getResults(page = 1) {
-                    let uri = this.uri + "?page=" + page;
-                    this.post(uri);
-                },
-                tagSelectTypeToggle() {
-                    if (this.select_type_toggle == "select") {
-                        this.select_type_toggle = "checkbox";
-                    } else if (this.select_type_toggle == "checkbox") {
-                        this.select_type_toggle = "select";
-                    }
-                },
 
-                // おすすめ検索（謎）
-                recommendedSearch() {
-                    this.form = {
-                        'title': "",
-                        'description': "",
-                        'tags': [7],
-                        'story_number_from': 15,
-                        'nico_no_from': '',
-                        'nico_no_to': '',
-                        'order': 'comic_update_date_desc',
-                    }
-                    this.onSearch();
-                },
 
             }
         });

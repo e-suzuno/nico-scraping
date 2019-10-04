@@ -104,6 +104,9 @@ $ docker exec -it nicomanga-web01 bash -c "cd /var/www/web/ && php artisan scrap
 $ docker exec -it nicomanga-web01 bash -c "cd /var/www/web/ && php artisan scraping:update"
 ```
 
+```
+docker exec -it nicomanga-web01 bash -c "cd /var/www/web/ && php artisan scraping:list"
+```
 
 # seederの吐き出し用コマンド
 DBにあるテーブルをSeederとして吐き出しのコマンド

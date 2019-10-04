@@ -32,11 +32,20 @@ window.config = config;
 //console.log(config);
 
 
+import exclusionStore from './stores/exclusionStore'
+window.exclusionStore = exclusionStore;
+
 
 Vue.component('pagination', require('laravel-vue-pagination'));
 Vue.component('nico-comic-list', require('./components/nicoComic/nicoComicList.vue').default);
 Vue.component('nico-comic-item', require('./components/nicoComic/nicoComicItem.vue').default);
+Vue.component('nico-comic-tag', require('./components/nicoComic/Tag.vue').default);
+
+
+
 Vue.component('select2', require('./components/select2.vue').default);
+
+
 
 
 /*

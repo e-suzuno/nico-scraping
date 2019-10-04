@@ -2,7 +2,9 @@
 
 namespace App\Repositories\NicoComic;
 
+use App\Constants\TagConstant;
 use App\Constants\TagTypeConstant;
+use App\Helpers\NicoScrapingHelper;
 use App\Models\NicoComic;
 
 class NicoComicRepository implements NicoComicRepositoryInterface
@@ -65,6 +67,10 @@ class NicoComicRepository implements NicoComicRepositoryInterface
             $query->where('nico_no', '<=', $array['nico_no_to']);
         }
 
+        //除外リスト
+        if (isset($array['exclusionList']) && count($array['exclusionList']) > 0) {
+            $query->whereNotIn('nico_no', $array['exclusionList']);
+        }
 
         return $query;
     }
@@ -91,11 +97,11 @@ class NicoComicRepository implements NicoComicRepositoryInterface
 
 
     /**
-     * @param $no
-     * @param $tag_id
+     * @param int $no
+     * @param int $tag_id
      * @return bool     false コミックが見つからない、タグがすでに追加済みだと失敗
      */
-    public function addTag($no, $tag_id)
+    public function addTag(int $no, int $tag_id)
     {
         $nicoComic = $this->findByNicoNo($no);
         if (!$nicoComic) {
@@ -115,21 +121,38 @@ class NicoComicRepository implements NicoComicRepositoryInterface
 
 
     /**
-     * スレイピングデータを受け取って保存
-     * @param $data
+     * スレイピングして、データを保存する
+     *
+     * @param int $no ニコニコ静画の番号
+     * @return bool
      */
-    public function save($data)
+    public function saveNicoScraping(int $no)
     {
+
+        $data = NicoScrapingHelper::getNicoComicTargetPage($no);
+        if ($data === false) {
+            return false;
+        }
+
 
         $tags = [];
         $tags[] = getTagId($data['category'], TagTypeConstant::CATEGORY);
         $tags[] = getTagId($data['official_title'], TagTypeConstant::OFFICIAL_COMIC);
+
+        //完結済みなら完結ラグをつける
+        if ($data['is_complete'])
+            $tags[] = TagConstant::COMPLETE;
+
+
+
         //文章からのオートタグ
         $auto_tags = autoTagCheck($data['title'], $data['description']);
         foreach ($auto_tags as $auto_tag) {
             $tags[] = $auto_tag;
         }
         $data['tags_json'] = $tags;
+        $data['update_speed'] = update_speed($data['comic_start_date'], $data['comic_update_date'], $data['story_number']);
+
 
 
         $attribute = collect($data)->only([
@@ -137,6 +160,7 @@ class NicoComicRepository implements NicoComicRepositoryInterface
             "author",
             "description",
             "nico_no",
+            "update_speed",
             "comic_start_date",
             "comic_update_date",
             "story_number",
@@ -150,6 +174,7 @@ class NicoComicRepository implements NicoComicRepositoryInterface
             //新規作成
             $this->create($attribute);
         }
+        return true;
     }
 
 
@@ -159,8 +184,6 @@ class NicoComicRepository implements NicoComicRepositoryInterface
      */
     public function create($attribute)
     {
-
-
         $model = new nicoComic();
         $model->fill($attribute)->save();
         return $model;

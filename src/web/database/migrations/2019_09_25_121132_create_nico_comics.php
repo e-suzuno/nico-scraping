@@ -27,6 +27,8 @@ class CreateNicoComics extends Migration
 
             $table->date('comic_start_date');
             $table->date('comic_update_date');
+            $table->float('update_speed');
+
 
 
             $table->timestamps();

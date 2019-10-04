@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Constants\TagConstant;
 use App\Models\NicoComics;
 use App\Repositories\NicoComic\NicoComicRepositoryInterface AS NicoComicRepository;
 use App\Repositories\Tag\TagRepositoryInterface as TagRepository;
@@ -88,6 +89,35 @@ class NicoComicController extends Controller
         try {
             $input = $request->all();
             $this->nicoComicRepository->addTag($input['no'], $input['tag_id']);
+
+            $nicoComic = $this->nicoComicRepository->findByNicoNo($input['no']);
+
+            $response = \Response::json(array(
+                'status' => true,
+                'message' => "success",
+                'item' => $nicoComic,
+            ), 200);
+
+        } catch (\Exception $e) {
+            $response = \Response::json(array(
+                'status' => false,
+                'message' => $e->getMessage()
+            ), 400);
+        }
+        return $response;
+
+    }
+
+
+    /**
+     * @param Request $request
+     * @return mixed
+     */
+    public function addTagAdminRecommended(Request $request)
+    {
+        try {
+            $input = $request->all();
+            $this->nicoComicRepository->addTag($input['no'], TagConstant::ADMIN_RECOMMENDED);
 
             $nicoComic = $this->nicoComicRepository->findByNicoNo($input['no']);
 

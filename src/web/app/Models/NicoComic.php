@@ -35,7 +35,7 @@ class NicoComic extends Model
     ];
 
     protected $appends = [
-        'url', 'has_tags' , 'update_speed'
+        'url', 'has_tags',
     ];
 
     protected $guarded = [''];
@@ -56,18 +56,6 @@ class NicoComic extends Model
     {
         return $this->hasTags();
     }
-
-    
-    public function getUpdateSpeedAttribute()
-    {
-        $diff_day = Carbon::create($this->comic_start_date)->diffInDays(Carbon::create($this->comic_update_date));
-        if ($diff_day > 0 && $this->story_number > 0) {
-            return round( $diff_day / $this->story_number , 2);
-        }
-        return 0;
-    }
-
-
 
 
     /**

@@ -59,9 +59,6 @@ class IndexController extends Controller
             return $tag->tag_type_id !== TagTypeConstant::OFFICIAL_COMIC;
         })->sortBy('tag_type_id')->values()->all();
 
-
-
-
         return view("index", ["tagList" => $tagList]);
     }
 
@@ -73,4 +70,26 @@ class IndexController extends Controller
     {
         return view("about");
     }
+
+
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function exclusion()
+    {
+        return view("exclusion");
+    }
+
+
+    public function test()
+    {
+
+        $config = \App\Models\Config::all()->first();
+        var_dump($config->scraping_num);
+        $config->scraping_num += 1;
+        $config->save();
+
+
+    }
+
 }

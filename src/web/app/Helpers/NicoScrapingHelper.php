@@ -40,9 +40,7 @@ class NicoScrapingHelper
      */
     public static function getNicoComicTargetPage($no)
     {
-
         $url = self::comic_url($no);
-
         $cli = new \Goutte\Client();
         $crawler = $cli->request('GET', $url);
 
@@ -95,6 +93,21 @@ class NicoScrapingHelper
         }
 
 
+        //完結フラグの取得
+        $status_complete_cnt = $crawler->filter('.status_complete');
+        $is_complete = ($status_complete_cnt->count() > 0);
+
+
+        //NGワード系の除外
+        if (mb_strpos($main_title, "졸업증명서위조", 0, "UTF-8") !== false) {
+            return false;
+        }
+        //掲載数 0も除外
+        if ($story_number === 0) {
+            return false;
+        }
+
+
         $data = [
             "title" => trim($main_title),
             "author" => trim($author),
@@ -105,11 +118,55 @@ class NicoScrapingHelper
             "comic_start_date" => $comic_start_date,
             "comic_update_date" => $comic_update_date,
             "story_number" => $story_number,
-            "url" => $url
+            "url" => $url,
+            "is_complete" => $is_complete,
         ];
 
         return $data;
     }
 
+
+    public static function getNicoList($page)
+    {
+        $url = self::manga_updated_url($page);
+        $cli = new \Goutte\Client();
+        $crawler = $cli->request('GET', $url);
+
+        $mg_item_cnt = $crawler->filter('.mg_item');
+        if ($mg_item_cnt->count() === 0) {
+            //エラー
+            return FALSE;
+        }
+
+        $list = $mg_item_cnt->each(function ($mg_item) {
+
+
+            $href = $mg_item->filter('.title a')->attr('href');
+            if (preg_match('/\/comic\/([0-9]*)\?track=list/', $href, $match)) {
+                $nico_no = (int)$match[1];
+            } else {
+                //失敗？
+                return false;
+            }
+
+            $updated = $mg_item->filter('.updated')->eq(0)->text();
+            if (preg_match('/([1-9][0-9]{3})\/(0[1-9]{1}|1[0-2]{1})\/(0[1-9]{1}|[1-2]{1}[0-9]{1}|3[0-1]{1})/', $updated, $date_match)) {
+                $comic_update_date = new \Carbon\Carbon($date_match[1] . $date_match[2] . $date_match[3]);
+            } else {
+
+                //失敗？
+                return false;
+            }
+
+            return [
+                "nico_no" => $nico_no,
+                "comic_update_date" => $comic_update_date,
+            ];
+        });
+
+
+        return $list;
+
+    }
 
 }
