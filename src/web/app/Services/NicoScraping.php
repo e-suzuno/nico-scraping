@@ -1,14 +1,10 @@
 <?php
 
-namespace App\Helpers;
+namespace App\Services;
 
-/**
- * Class NicoScrapingHelper
- * @package App\Helpers
- */
-class NicoScrapingHelper
+
+class NicoScraping
 {
-
 
     /**
      * コミックのＵＲＬを返す

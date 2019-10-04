@@ -33,7 +33,7 @@ function getNicoMangaListPage($url)
  */
 function comic_url($no)
 {
-    return \App\Helpers\NicoScrapingHelper::comic_url($no);
+    return \NicoScraping::comic_url($no);
 }
 
 
@@ -92,7 +92,7 @@ function getTagId($label, $tag_type_id)
  */
 function getNicoMangaTargetPage($no)
 {
-    return \App\Helpers\NicoScrapingHelper::getNicoComicTargetPage($no);
+    return \NicoScraping::getNicoComicTargetPage($no);
 }
 
 

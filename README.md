@@ -91,6 +91,12 @@ $ docker exec -it nicomanga-web01 bash -c "cd /var/www/web/ && php artisan migra
 ```
 
 
+特定のSeeder実行
+```
+# php artisan db:seed --class={seeder}
+```
+
+
 # ニコニコへのスクレイピング 
 
 no順にスクレイピング 

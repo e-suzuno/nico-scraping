@@ -3,7 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Constants\TagTypeConstant;
-use App\Helpers\NicoScrapingHelper;
+
 use App\Models\Config;
 use App\Repositories\NicoComic\NicoComicRepositoryInterface as NicoComicRepository;
 use App\Repositories\Tag\TagRepositoryInterface as TagRepository;

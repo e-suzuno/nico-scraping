@@ -27,3 +27,7 @@ Route::post('/add-tag-api', 'NicoComicController@addTag')->name("add-tag-api");
 Route::post('/add-tag-recommended-api', 'NicoComicController@addTagAdminRecommended')->name("add-tag-recommended-api");
 
 
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

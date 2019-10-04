@@ -69,9 +69,7 @@ class NicoScrapingMangaUpdatedList extends Command
         $latest = new Carbon($now_2->addDay(1));
 
 
-        $array_1 = range(1, 30);
-
-        foreach ($array_1 as $i) {
+        for ($i = 1; $i <= 30; $i++) {
             $this->info($i . 'page start');
             if ($this->nicoListUpdate($i, $old, $latest) === FALSE) {
                 //FALSE が返ってきたら終了
@@ -93,7 +91,7 @@ class NicoScrapingMangaUpdatedList extends Command
     public function nicoListUpdate(int $page, Carbon $old, Carbon $latest)
     {
 
-        $list = \App\Helpers\NicoScrapingHelper::getNicoList($page);
+        $list = \NicoScraping::getNicoList($page);
         foreach ($list as $row) {
             $nico_no = $row['nico_no'];
             $comic_update_date = $row['comic_update_date'];

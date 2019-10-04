@@ -4,7 +4,6 @@ namespace App\Repositories\NicoComic;
 
 use App\Constants\TagConstant;
 use App\Constants\TagTypeConstant;
-use App\Helpers\NicoScrapingHelper;
 use App\Models\NicoComic;
 
 class NicoComicRepository implements NicoComicRepositoryInterface
@@ -129,7 +128,7 @@ class NicoComicRepository implements NicoComicRepositoryInterface
     public function saveNicoScraping(int $no)
     {
 
-        $data = NicoScrapingHelper::getNicoComicTargetPage($no);
+        $data = \NicoScraping::getNicoComicTargetPage($no);
         if ($data === false) {
             return false;
         }
@@ -139,7 +138,7 @@ class NicoComicRepository implements NicoComicRepositoryInterface
         $tags[] = getTagId($data['category'], TagTypeConstant::CATEGORY);
         $tags[] = getTagId($data['official_title'], TagTypeConstant::OFFICIAL_COMIC);
 
-        //完結済みなら完結ラグをつける
+        //完結済みなら完結タグをつける
         if ($data['is_complete'])
             $tags[] = TagConstant::COMPLETE;
 
@@ -168,8 +167,7 @@ class NicoComicRepository implements NicoComicRepositoryInterface
         if ($nicoComic) {
             //更新
 
-
-            //管理人お気に入りがあったら追加しとく
+            //タグが上書きで消えてしまうので、既存で管理人お気に入りがあった場合は追加
             if (in_array(TagConstant::ADMIN_RECOMMENDED, $nicoComic->tags_json)) {
                 $attribute["tags_json"] = TagConstant::ADMIN_RECOMMENDED;
             }

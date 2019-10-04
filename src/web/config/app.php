@@ -182,6 +182,7 @@ return [
         //Seederの逆生成用
         Orangehill\Iseed\IseedServiceProvider::class,
 
+
     ],
 
     /*
@@ -236,6 +237,11 @@ return [
 
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
+
+
+
+        // ...
+        'NicoScraping' => App\Facades\NicoScraping::class,
 
     ],
 
