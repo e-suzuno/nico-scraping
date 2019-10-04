@@ -144,7 +144,6 @@ class NicoComicRepository implements NicoComicRepositoryInterface
             $tags[] = TagConstant::COMPLETE;
 
 
-
         //文章からのオートタグ
         $auto_tags = autoTagCheck($data['title'], $data['description']);
         foreach ($auto_tags as $auto_tag) {
@@ -152,7 +151,6 @@ class NicoComicRepository implements NicoComicRepositoryInterface
         }
         $data['tags_json'] = $tags;
         $data['update_speed'] = update_speed($data['comic_start_date'], $data['comic_update_date'], $data['story_number']);
-
 
 
         $attribute = collect($data)->only([
@@ -169,6 +167,13 @@ class NicoComicRepository implements NicoComicRepositoryInterface
         $nicoComic = $this->findByNicoNo($attribute["nico_no"]);
         if ($nicoComic) {
             //更新
+
+
+            //管理人お気に入りがあったら追加しとく
+            if (in_array(TagConstant::ADMIN_RECOMMENDED, $nicoComic->tags_json)) {
+                $attribute["tags_json"] = TagConstant::ADMIN_RECOMMENDED;
+            }
+
             $this->update($nicoComic->id, $attribute);
         } else {
             //新規作成

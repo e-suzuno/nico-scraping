@@ -79,11 +79,10 @@ $ docker exec -it nicomanga-web01 /bin/sh
 # php artisan migrate
 ```
 
- リフレッシュ
+ リフレッシュ(Seederも実行)
 ```
 $ docker exec -it nicomanga-web01 bash -c "cd /var/www/web/ && php artisan migrate:refresh --seed"
 ```
-
 
 
 全テーブル削除
@@ -104,6 +103,7 @@ $ docker exec -it nicomanga-web01 bash -c "cd /var/www/web/ && php artisan scrap
 $ docker exec -it nicomanga-web01 bash -c "cd /var/www/web/ && php artisan scraping:update"
 ```
 
+# 更新順から取ってくる系
 ```
 docker exec -it nicomanga-web01 bash -c "cd /var/www/web/ && php artisan scraping:list"
 ```

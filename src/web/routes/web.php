@@ -27,4 +27,3 @@ Route::post('/add-tag-api', 'NicoComicController@addTag')->name("add-tag-api");
 Route::post('/add-tag-recommended-api', 'NicoComicController@addTagAdminRecommended')->name("add-tag-recommended-api");
 
 
-// Route::get('/test', 'IndexController@test')->name("test");

@@ -62,28 +62,35 @@ class NicoScrapingMangaUpdatedList extends Command
         $this->info('NicoScraping list');
 
 
-        $old = new Carbon("2019-10-04");
-        $latest = new Carbon("2019-10-05");
+        $now = new Carbon(date("Y/m/d"));
+        $old = new Carbon($now->subDay(1));
 
-        //1日10ページ以上更新もあり得るので20ページ分見に行くように…
-        $array_1 = range(1, 20);
+        $now_2 = new Carbon(date("Y/m/d"));
+        $latest = new Carbon($now_2->addDay(1));
+
+
+        $array_1 = range(1, 30);
+
         foreach ($array_1 as $i) {
+            $this->info($i . 'page start');
             if ($this->nicoListUpdate($i, $old, $latest) === FALSE) {
                 //FALSE が返ってきたら終了
                 break;
             }
+            sleep(1);
+            $this->info($i . 'page ok. go to next page');
         }
-        $this->info('ok');
+        $this->info('complete');
     }
 
 
     /**
-     * @param $page
-     * @param $old
-     * @param $latest
+     * @param int $page
+     * @param Carbon $old
+     * @param Carbon $latest
      * @return bool
      */
-    public function nicoListUpdate($page, $old, $latest)
+    public function nicoListUpdate(int $page, Carbon $old, Carbon $latest)
     {
 
         $list = \App\Helpers\NicoScrapingHelper::getNicoList($page);

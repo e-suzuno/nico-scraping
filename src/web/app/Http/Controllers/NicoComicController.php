@@ -65,7 +65,10 @@ class NicoComicController extends Controller
                 $select->orderBy('nico_no', 'desc');
             } else if ($order === "story_number_desc") {
                 $select->orderBy('story_number', 'desc');
+            } else if ($order === "update_speed_asc") {
+                $select->orderBy('update_speed', 'asc');
             }
+
 
             $nicoComics = $select->paginate(15);
 

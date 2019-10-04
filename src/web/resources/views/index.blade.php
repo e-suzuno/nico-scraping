@@ -168,6 +168,8 @@
             {id: 'comic_update_date_desc', name: '更新順',},
             {id: 'nico_no_desc', name: 'NO 降順',},
             {id: 'story_number_desc', name: '話数多い順',},
+            {id: 'update_speed_asc', name: '更新頻度早い順',},
+
         ];
 
         const tag_options = tags.map(function (domain) {

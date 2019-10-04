@@ -40,7 +40,7 @@ class NicoScraping extends Command
     /**
      * @var int
      */
-    public $scraping_count = 100;
+    public $scraping_count = 2000;
 
     /**
      * NicoScraping constructor.
@@ -69,6 +69,10 @@ class NicoScraping extends Command
 
 
         $config = \App\Models\Config::all()->first();
+        if (!$config) {
+            $config = new Config(['scraping_num' => 1]);
+        }
+
         $from = $config->scraping_num;
         $last_no = $from;
 
