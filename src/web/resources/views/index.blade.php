@@ -260,8 +260,8 @@
                     this.form = {
                         'title': "",
                         'description': "",
-                        'tags': [7],
-                        'story_number_from': 15,
+                        'tags': [ {{\App\Constants\TagConstant::USER}}],
+                        'story_number_from': 10,
                         'nico_no_from': '',
                         'nico_no_to': '',
                         'order': 'comic_update_date_desc',
