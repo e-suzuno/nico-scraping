@@ -16,7 +16,7 @@ RUN apt-get install -y automake autoconf pngquant libpng-dev libxrender1 libfont
 
 
 RUN apt-get install -y libpq-dev \
-  && docker-php-ext-install pdo pdo_mysql pdo_pgsql gd zip
+  && docker-php-ext-install pdo pdo_mysql pdo_pgsql gd zip git
 
 
 # install node
