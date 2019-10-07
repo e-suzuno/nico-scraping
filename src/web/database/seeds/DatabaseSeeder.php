@@ -12,10 +12,11 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
 
+
+        $this->call(ConfigsTableSeeder::class);
         $this->call(TagsTableSeeder::class);
         $this->call(TagTypesTableSeeder::class);
 
      //   $this->call(NicoComicsTableSeeder::class);
-
     }
 }
