@@ -8,7 +8,8 @@
     <title>静画掘り出し君</title>
 
     {{ Html::style('css/layout.css', [], Request::secure()) }}
-    <link rel="stylesheet" href="{{ mix('/css/app.css') }}">
+    {{ Html::style('css/app.css', [], Request::secure()) }}
+
 
     @yield('head')
 
@@ -54,8 +55,7 @@
     </footer>
 </div>
 @section('scripts')
-
-    <script src="{{mix('js/app.js')}}"></script>
+    {{ HTML::script('js/app.js') }}
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/css/select2.min.css" rel="stylesheet"/>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/js/select2.min.js"></script>
