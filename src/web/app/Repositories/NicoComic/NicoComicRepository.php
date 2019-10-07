@@ -169,7 +169,7 @@ class NicoComicRepository implements NicoComicRepositoryInterface
 
             //タグが上書きで消えてしまうので、既存で管理人お気に入りがあった場合は追加
             if (in_array(TagConstant::ADMIN_RECOMMENDED, $nicoComic->tags_json)) {
-                $attribute["tags_json"] = TagConstant::ADMIN_RECOMMENDED;
+                $attribute["tags_json"][] = TagConstant::ADMIN_RECOMMENDED;
             }
 
             $this->update($nicoComic->id, $attribute);
