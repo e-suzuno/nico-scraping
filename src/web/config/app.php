@@ -181,7 +181,8 @@ return [
 
         //Seederの逆生成用
         Orangehill\Iseed\IseedServiceProvider::class,
-
+        // IdeHelperの追加
+        Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
 
     ],
 
