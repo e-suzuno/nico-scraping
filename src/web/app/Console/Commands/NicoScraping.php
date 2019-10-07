@@ -8,6 +8,7 @@ use App\Models\Config;
 use App\Repositories\NicoComic\NicoComicRepositoryInterface as NicoComicRepository;
 use App\Repositories\Tag\TagRepositoryInterface as TagRepository;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Log;
 
 class NicoScraping extends Command
 {
@@ -67,7 +68,6 @@ class NicoScraping extends Command
     {
         $this->info('NicoScraping run');
 
-
         $config = \App\Models\Config::all()->first();
         if (!$config) {
             $config = new Config(['scraping_num' => 1]);
@@ -96,6 +96,8 @@ class NicoScraping extends Command
 
 
         $this->info('ok');
+
+        Log::info("scraping ok get NO:{$from}=>{$last_no}");
     }
 
 
