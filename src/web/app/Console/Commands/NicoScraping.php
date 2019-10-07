@@ -41,7 +41,7 @@ class NicoScraping extends Command
     /**
      * @var int
      */
-    public $scraping_count = 20;
+    public $scraping_count;
 
     /**
      * NicoScraping constructor.
@@ -66,6 +66,10 @@ class NicoScraping extends Command
      */
     public function handle()
     {
+
+        $this->scraping_count = config('my-app.nico-scraping-count');
+
+
         $this->info('NicoScraping run');
 
         $config = \App\Models\Config::all()->first();
