@@ -52,9 +52,14 @@ class NicoComicRepository implements NicoComicRepositoryInterface
 
         if (isset($array['word']) && $array['word'] !== "") {
             $array_word = explode(" ", $array['word']);
-            foreach ($array_word as $_word)
-                $query->where(\DB::raw("CONCAT(title, ' ' , description)"), 'LIKE', '%' . $_word . '%');
-
+            foreach ($array_word as $_word){
+                if(substr($_word , 0, 1) === "-"){
+                    $str = ltrim($_word, '-');
+                    $query->where(\DB::raw("CONCAT(title, ' ' , description)"), 'NOT LIKE', '%' . $str . '%');
+                }else{
+                    $query->where(\DB::raw("CONCAT(title, ' ' , description)"), 'LIKE', '%' . $_word . '%');
+                }
+            }
         }
 
 
