@@ -2,7 +2,8 @@
     <ul class="nico-comic-list">
         <li v-for="(item ,key) in value">
             <nico-comic-item
-                :item="item"></nico-comic-item>
+                :item="item"
+                :user="user"></nico-comic-item>
         </li>
     </ul>
 </template>
@@ -12,6 +13,7 @@
         name: "nicoComicList",
         props: [
             'value',
+            'user',
         ],
         data() {
             return {}

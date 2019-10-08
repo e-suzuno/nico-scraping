@@ -12,10 +12,14 @@
                    rel="noopener">[ {{data.nico_no}} ]
                     {{data.title}}
                 </a>
-                <button @click="pushFavorite()" type="button" class="btn btn-success rounded-circle p-0"
-                        style="width: 1.1rem;height: 1.1rem;font-size: 0.5rem;">＋</button>
+                <template v-if="user.id==1">
+                    <button @click="pushFavorite()" type="button" class="btn btn-success rounded-circle p-0"
+                            style="width: 1.1rem;font-size: 0.5rem;">＋
+                    </button>
+                </template>
                 <button @click="addExclusionList()" type="button" class="btn btn-danger rounded-circle p-0"
-                         style="width: 1.1rem; height: 1.1rem;font-size: 0.5rem;">‐</button>
+                        style="width: 1.1rem; font-size: 0.5rem;">‐
+                </button>
             </div>
             <div class="nico-comic-list__item__update_at">
                 最終確認：{{data.updated_at}}
@@ -27,7 +31,8 @@
             </div>
             <div class="nico-comic-list__item__info">
                 <span class="badge badge-primary badge-pill">{{data.story_number}}話</span>
-                [ <span class="comic_start_date">{{data.comic_start_date}}</span> => <span class="comic_update_date">{{data.comic_update_date}}</span> ]
+                [ <span class="comic_start_date">{{data.comic_start_date}}</span> => <span class="comic_update_date">{{data.comic_update_date}}</span>
+                ]
             </div>
             <div class="nico-comic-list__item__description">
                 {{data.description}}
@@ -44,6 +49,7 @@
         name: "nicoComicItem",
         props: [
             'item',
+            'user'
         ],
         data() {
             return {

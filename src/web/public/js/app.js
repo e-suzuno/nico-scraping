@@ -1920,9 +1920,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "nicoComicItem",
-  props: ['item'],
+  props: ['item', 'user'],
   data: function data() {
     return {
       data: this.item,
@@ -1980,9 +1985,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "nicoComicList",
-  props: ['value'],
+  props: ['value', 'user'],
   data: function data() {
     return {};
   },
@@ -38746,65 +38752,69 @@ var render = function() {
       this.exclusion
         ? [_vm._v("\n        除外されました。\n    ")]
         : [
-            _c("div", { staticClass: "nico-comic-list__item__title" }, [
-              _c(
-                "a",
-                {
-                  attrs: {
-                    href: _vm.data.url,
-                    target: "_blank",
-                    rel: "noopener"
-                  }
-                },
-                [
-                  _vm._v(
-                    "[ " +
-                      _vm._s(_vm.data.nico_no) +
-                      " ]\n                " +
-                      _vm._s(_vm.data.title) +
-                      "\n            "
-                  )
-                ]
-              ),
-              _vm._v(" "),
-              _c(
-                "button",
-                {
-                  staticClass: "btn btn-success rounded-circle p-0",
-                  staticStyle: {
-                    width: "1.1rem",
-                    height: "1.1rem",
-                    "font-size": "0.5rem"
-                  },
-                  attrs: { type: "button" },
-                  on: {
-                    click: function($event) {
-                      return _vm.pushFavorite()
+            _c(
+              "div",
+              { staticClass: "nico-comic-list__item__title" },
+              [
+                _c(
+                  "a",
+                  {
+                    attrs: {
+                      href: _vm.data.url,
+                      target: "_blank",
+                      rel: "noopener"
                     }
-                  }
-                },
-                [_vm._v("＋")]
-              ),
-              _vm._v(" "),
-              _c(
-                "button",
-                {
-                  staticClass: "btn btn-danger rounded-circle p-0",
-                  staticStyle: {
-                    width: "1.1rem",
-                    height: "1.1rem",
-                    "font-size": "0.5rem"
                   },
-                  attrs: { type: "button" },
-                  on: {
-                    click: function($event) {
-                      return _vm.addExclusionList()
+                  [
+                    _vm._v(
+                      "[ " +
+                        _vm._s(_vm.data.nico_no) +
+                        " ]\n                " +
+                        _vm._s(_vm.data.title) +
+                        "\n            "
+                    )
+                  ]
+                ),
+                _vm._v(" "),
+                _vm.user.id == 1
+                  ? [
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-success rounded-circle p-0",
+                          staticStyle: {
+                            width: "1.1rem",
+                            "font-size": "0.5rem"
+                          },
+                          attrs: { type: "button" },
+                          on: {
+                            click: function($event) {
+                              return _vm.pushFavorite()
+                            }
+                          }
+                        },
+                        [_vm._v("＋\n                ")]
+                      )
+                    ]
+                  : _vm._e(),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-danger rounded-circle p-0",
+                    staticStyle: { width: "1.1rem", "font-size": "0.5rem" },
+                    attrs: { type: "button" },
+                    on: {
+                      click: function($event) {
+                        return _vm.addExclusionList()
+                      }
                     }
-                  }
-                },
-                [_vm._v("‐")]
-              )
-            ]),
+                  },
+                  [_vm._v("‐\n            ")]
+                )
+              ],
+              2
+            ),
             _vm._v(" "),
             _c("div", { staticClass: "nico-comic-list__item__update_at" }, [
               _vm._v(
@@ -38837,7 +38847,7 @@ var render = function() {
               _c("span", { staticClass: "comic_update_date" }, [
                 _vm._v(_vm._s(_vm.data.comic_update_date))
               ]),
-              _vm._v(" ]\n        ")
+              _vm._v("\n            ]\n        ")
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "nico-comic-list__item__description" }, [
@@ -38884,7 +38894,11 @@ var render = function() {
     "ul",
     { staticClass: "nico-comic-list" },
     _vm._l(_vm.value, function(item, key) {
-      return _c("li", [_c("nico-comic-item", { attrs: { item: item } })], 1)
+      return _c(
+        "li",
+        [_c("nico-comic-item", { attrs: { item: item, user: _vm.user } })],
+        1
+      )
     }),
     0
   )

@@ -143,6 +143,7 @@
 
                 <nico-comic-list
                     :value="laravelData.data"
+                    :user="user"
                 ></nico-comic-list>
 
                 <pagination :data="laravelData" @pagination-change-page="getResults"
@@ -169,13 +170,20 @@
             {id: 'nico_no_desc', name: 'NO 降順',},
             {id: 'story_number_desc', name: '話数多い順',},
             {id: 'update_speed_asc', name: '更新頻度早い順',},
-
         ];
+
+        @guest
+            const user = Object.freeze( {!! new \App\Models\User() !!});
+        @else
+            const user = Object.freeze( {!! \Illuminate\Support\Facades\Auth::user() !!} );
+        @endguest
+
+
 
         const tag_options = tags.map(function (domain) {
                 return {id: domain.id, text: domain.label};
             }
-        );
+            );
 
 
         var local = new Vue({
@@ -184,6 +192,7 @@
             data: {
                 'loading': true,
                 'laravelData': {},
+                'user': user,
                 'tag_options': tag_options,
                 'order_select_options': order_select_options,
                 'uri': "{{route("search-api")}}",
@@ -225,7 +234,6 @@
                     this.loading = true;
 
                     let exclusionList = exclusionStore.getExclusionList();
-
 
                     let params = {
                         ...this.form,
