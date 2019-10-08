@@ -11,10 +11,7 @@
 
     display: grid;
     grid-template-columns: 300px 1fr 1fr 200px 100px;
-    grid-template-areas:
-        " title title title update_at update-speed"
-        " info tags tags tags tags"
-        " description description description description description";
+    grid-template-areas: " title title title update_at update-speed" " info tags tags tags tags" " description description description description description";
 
 }
 
@@ -30,29 +27,35 @@
 }
 
 .nico-comic-list__item__tags {
-    grid-area: tags ;
+    grid-area: tags;
 }
 
 .nico-comic-list__item__info {
-    grid-area: info ;
+    grid-area: info;
 }
 
 .nico-comic-list__item__description {
-    grid-area: description  ;
+    grid-area: description;
     border-radius: 5px;
     padding: 5px;
     font-size: 0.8rem;
 }
 
-.nico-comic-list__item__update-speed{
-    grid-area: update-speed  ;
+.nico-comic-list__item__update-speed {
+    grid-area: update-speed;
     font-size: 0.8rem;
 }
 
+.nico-comic-list__item__story_number {
+    font-size: 1.0rem;
 
+}
 
+.nico-comic-list__item__nico_no {
+    font-weight: normal;
+    font-size: 0.8rem;
+}
 
-
-.nico-comic-list__item__tag{
+.nico-comic-list__item__tag {
     margin-right: 2px;
 }

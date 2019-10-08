@@ -9,9 +9,11 @@
             <div class="nico-comic-list__item__title">
                 <a :href="data.url"
                    target="_blank"
-                   rel="noopener">[ {{data.nico_no}} ]
+                   rel="noopener">
                     {{data.title}}
                 </a>
+                <span class="nico-comic-list__item__story_number">掲載:{{data.story_number}}話</span>
+                <span class="nico-comic-list__item__nico_no">{{data.nico_no}}</span>
                 <template v-if="user.id==1">
                     <button @click="pushFavorite()" type="button" class="btn btn-success rounded-circle p-0"
                             style="width: 1.1rem;font-size: 0.5rem;">＋
@@ -30,9 +32,7 @@
                 </template>
             </div>
             <div class="nico-comic-list__item__info">
-                <span class="badge badge-primary badge-pill">{{data.story_number}}話</span>
-                [ <span class="comic_start_date">{{data.comic_start_date}}</span> => <span class="comic_update_date">{{data.comic_update_date}}</span>
-                ]
+                [ <span class="comic_start_date">{{data.comic_start_date}}</span> => <span class="comic_update_date">{{data.comic_update_date}}</span> ]
             </div>
             <div class="nico-comic-list__item__description">
                 {{data.description}}

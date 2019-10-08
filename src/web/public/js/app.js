@@ -38779,14 +38779,22 @@ var render = function() {
                   },
                   [
                     _vm._v(
-                      "[ " +
-                        _vm._s(_vm.data.nico_no) +
-                        " ]\n                " +
+                      "\n                " +
                         _vm._s(_vm.data.title) +
                         "\n            "
                     )
                   ]
                 ),
+                _vm._v(" "),
+                _c(
+                  "span",
+                  { staticClass: "nico-comic-list__item__story_number" },
+                  [_vm._v("掲載:" + _vm._s(_vm.data.story_number) + "話")]
+                ),
+                _vm._v(" "),
+                _c("span", { staticClass: "nico-comic-list__item__nico_no" }, [
+                  _vm._v(_vm._s(_vm.data.nico_no))
+                ]),
                 _vm._v(" "),
                 _vm.user.id == 1
                   ? [
@@ -38848,9 +38856,6 @@ var render = function() {
             ),
             _vm._v(" "),
             _c("div", { staticClass: "nico-comic-list__item__info" }, [
-              _c("span", { staticClass: "badge badge-primary badge-pill" }, [
-                _vm._v(_vm._s(_vm.data.story_number) + "話")
-              ]),
               _vm._v("\n            [ "),
               _c("span", { staticClass: "comic_start_date" }, [
                 _vm._v(_vm._s(_vm.data.comic_start_date))
@@ -38859,7 +38864,7 @@ var render = function() {
               _c("span", { staticClass: "comic_update_date" }, [
                 _vm._v(_vm._s(_vm.data.comic_update_date))
               ]),
-              _vm._v("\n            ]\n        ")
+              _vm._v(" ]\n        ")
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "nico-comic-list__item__description" }, [
