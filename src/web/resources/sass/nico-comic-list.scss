@@ -11,7 +11,10 @@
 
     display: grid;
     grid-template-columns: 300px 1fr 1fr 200px 100px;
-    grid-template-areas: " title title title update_at update-speed" " info tags tags tags tags" " description description description description description";
+    grid-template-areas:
+        " title title title info info"
+        " tags tags tags update_at update-speed"
+        " description description description description description";
 
 }
 
@@ -32,6 +35,7 @@
 
 .nico-comic-list__item__info {
     grid-area: info;
+    font-size: 0.8rem;
 }
 
 .nico-comic-list__item__description {

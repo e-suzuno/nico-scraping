@@ -1937,6 +1937,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "nicoComicItem",
   props: ['item', 'user'],
@@ -38778,18 +38779,20 @@ var render = function() {
                     }
                   },
                   [
+                    _c(
+                      "span",
+                      {
+                        staticClass:
+                          "nico-comic-list__item__story_number badge badge-primary badge-pill"
+                      },
+                      [_vm._v(_vm._s(_vm.data.story_number) + "話")]
+                    ),
                     _vm._v(
                       "\n                " +
                         _vm._s(_vm.data.title) +
                         "\n            "
                     )
                   ]
-                ),
-                _vm._v(" "),
-                _c(
-                  "span",
-                  { staticClass: "nico-comic-list__item__story_number" },
-                  [_vm._v(_vm._s(_vm.data.story_number) + "話")]
                 ),
                 _vm._v(" "),
                 _c("span", { staticClass: "nico-comic-list__item__nico_no" }, [
@@ -38836,9 +38839,20 @@ var render = function() {
               2
             ),
             _vm._v(" "),
+            _c("div", { staticClass: "nico-comic-list__item__info" }, [
+              _vm._v("\n            連載期間："),
+              _c("span", { staticClass: "comic_start_date" }, [
+                _vm._v(_vm._s(_vm.data.comic_start_date))
+              ]),
+              _vm._v("\n            -> "),
+              _c("span", { staticClass: "comic_update_date" }, [
+                _vm._v(_vm._s(_vm.data.comic_update_date))
+              ])
+            ]),
+            _vm._v(" "),
             _c("div", { staticClass: "nico-comic-list__item__update_at" }, [
               _vm._v(
-                "\n            最終確認：" +
+                "\n            最終取得：" +
                   _vm._s(_vm.data.updated_at) +
                   "\n        "
               )
@@ -38854,18 +38868,6 @@ var render = function() {
               ],
               2
             ),
-            _vm._v(" "),
-            _c("div", { staticClass: "nico-comic-list__item__info" }, [
-              _vm._v("\n            [ "),
-              _c("span", { staticClass: "comic_start_date" }, [
-                _vm._v(_vm._s(_vm.data.comic_start_date))
-              ]),
-              _vm._v(" => "),
-              _c("span", { staticClass: "comic_update_date" }, [
-                _vm._v(_vm._s(_vm.data.comic_update_date))
-              ]),
-              _vm._v(" ]\n        ")
-            ]),
             _vm._v(" "),
             _c("div", { staticClass: "nico-comic-list__item__description" }, [
               _vm._v(
