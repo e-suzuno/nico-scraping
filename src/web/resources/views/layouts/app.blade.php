@@ -88,11 +88,14 @@
             @yield('content')
         </div>
     </main>
-    <footer>
-        <p>
+    <!-- Footer -->
+    <footer class="page-footer font-small blue">
+        <div class="footer-copyright text-center py-3">
             超おすすめサイト：<a href="https://seiga.nicovideo.jp/manga/">ニコニコ静画(マンガ)</a>
-        </p>
+        </div>
     </footer>
+    <!-- Footer -->
+
 </div>
 @section('scripts')
     {{ HTML::script('js/app.js') }}

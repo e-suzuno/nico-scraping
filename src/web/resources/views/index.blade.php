@@ -151,36 +151,29 @@
         </div>
     </div>
 
-
-    <div class="card">
-
-
-        <div class="card-body">
-            <div v-show="loading" class="loader">Now loading...</div>
-            <div v-show="!loading" class="itemContainer">
-
-                <span>( 全 @{{ laravelData.total }}件 )</span>
-
-                <pagination :data="laravelData" @pagination-change-page="getResults"
-                            :limit="3">
-                    <span slot="prev-nav">&lt; 前へ</span>
-                    <span slot="next-nav">次へ &gt;</span>
-                </pagination>
-
+    <div v-show="loading" class="loader">Now loading...</div>
+    <div v-show="!loading" class="itemContainer">
+        <span>( 全 @{{ laravelData.total }}件 )</span>
+        <pagination :data="laravelData" @pagination-change-page="getResults"
+                    :limit="3">
+            <span slot="prev-nav">&lt&lt</span>
+            <span slot="next-nav">&gt;&gt;</span>
+        </pagination>
+        <div class="card">
+            <div class="card-body">
                 <nico-comic-list
                     :value="laravelData.data"
                     :user="user"
                 ></nico-comic-list>
-
-                <pagination :data="laravelData" @pagination-change-page="getResults"
-                            :limit="4">
-                    <span slot="prev-nav">&lt; Previous</span>
-                    <span slot="next-nav">Next &gt;</span>
-                </pagination>
-
             </div>
         </div>
+        <pagination :data="laravelData" @pagination-change-page="getResults"
+                    :limit="4">
+            <span slot="prev-nav">&lt; Previous</span>
+            <span slot="next-nav">Next &gt;</span>
+        </pagination>
     </div>
+
 @stop
 
 
@@ -232,6 +225,8 @@
                     'nico_no': '',
                     'nico_no_from': '',
                     'nico_no_to': '',
+                    'comic_update_date_from': '',
+                    'comic_update_date_to': '',
                     'order': 'comic_update_date_desc',
                 },
                 "init": {},
@@ -305,7 +300,7 @@
                 // おすすめ検索（謎）
                 recommendedSearch() {
                     this.form = {
-                        'word': "",
+                        'word': "-艦これ -艦娘 -艦隊これくしょん -けもフレ -東方 -FGO",
                         'tags': [ {{\App\Constants\TagConstant::USER}}],
                         'story_number_from': 10,
                         'nico_no_from': '',
