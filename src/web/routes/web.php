@@ -19,6 +19,7 @@ Route::get('/', function () {
 
 Route::get('/', 'IndexController@index')->name("index");
 Route::get('/about', 'IndexController@about')->name("about");
+Route::get('/exclusion', 'IndexController@exclusion')->name("exclusion");
 
 
 

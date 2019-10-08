@@ -38,6 +38,9 @@
                         <a class="nav-link" href="{{ route("about") }}">about</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" href="{{ route("exclusion") }}">exclusion</a>
+                    </li>
+
                 </ul>
 
 
