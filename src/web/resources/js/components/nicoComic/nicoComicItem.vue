@@ -38,7 +38,7 @@
                 {{data.description}}
             </div>
             <div class="nico-comic-list__item__update-speed">
-                更新頻度:{{data.update_speed}}
+                更新頻度:{{ Math.round(data.update_speed * 100) / 100}}
             </div>
         </template>
     </div>

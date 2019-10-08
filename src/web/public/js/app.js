@@ -38871,7 +38871,7 @@ var render = function() {
             _c("div", { staticClass: "nico-comic-list__item__update-speed" }, [
               _vm._v(
                 "\n            更新頻度:" +
-                  _vm._s(_vm.data.update_speed) +
+                  _vm._s(Math.round(_vm.data.update_speed * 100) / 100) +
                   "\n        "
               )
             ])
