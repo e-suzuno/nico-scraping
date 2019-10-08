@@ -143,11 +143,11 @@ class NicoComicRepository implements NicoComicRepositoryInterface
         if ($data['is_complete'])
             $tags[] = TagConstant::COMPLETE;
         if ($data['is_trial'])
-            $tags[] = TagConstant::COMPLETE;
+            $tags[] = TagConstant::TRIAL;
         if ($data['is_gro'])
-            $tags[] = TagConstant::COMPLETE;
+            $tags[] = TagConstant::GRO;
         if ($data['is_adult'])
-            $tags[] = TagConstant::COMPLETE;
+            $tags[] = TagConstant::ADULT;
 
 
 
