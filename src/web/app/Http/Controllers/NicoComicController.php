@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Constants\TagConstant;
+use App\Http\Requests\NicoComicPost;
 use App\Models\NicoComics;
 use App\Repositories\NicoComic\NicoComicRepositoryInterface AS NicoComicRepository;
 use App\Repositories\Tag\TagRepositoryInterface as TagRepository;
@@ -50,10 +51,11 @@ class NicoComicController extends Controller
      * @param Request $request
      * @return mixed
      */
-    public function search(Request $request)
+    public function search(NicoComicPost $request)
     {
 
         try {
+
             $input = $request->all();
 
             $select = $this->nicoComicRepository->find($input);
@@ -84,6 +86,19 @@ class NicoComicController extends Controller
         }
         return $response;
     }
+
+
+    /**
+     *
+     * xclusionList: [26419, 18834, 23512, 24321, 27564, 20110, 12439, 42816, 1]
+     * nico_no: ""
+     * nico_no_from: ""
+     * nico_no_to: ""
+     * order: "comic_update_date_desc"
+     * story_number_from: 1
+     * tags: []
+     * word: ""
+     */
 
 
     /**
