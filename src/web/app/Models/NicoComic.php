@@ -32,6 +32,7 @@ class NicoComic extends Model
 
     protected $casts = [
         'tags_json' => 'json',
+        'update_speed' => 'double',
     ];
 
     protected $appends = [
