@@ -1851,6 +1851,18 @@ __webpack_require__.r(__webpack_exports__);
         return "badge-complete";
       }
 
+      if (this.tag.id == 16) {
+        return "badge-trial";
+      }
+
+      if (this.tag.id == 17) {
+        return "badge-gro";
+      }
+
+      if (this.tag.id == 18) {
+        return "badge-adult";
+      }
+
       if (this.tag.tag_type_id == 4) {
         return "badge-success";
       }
