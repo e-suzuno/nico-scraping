@@ -38789,7 +38789,7 @@ var render = function() {
                 _c(
                   "span",
                   { staticClass: "nico-comic-list__item__story_number" },
-                  [_vm._v("掲載:" + _vm._s(_vm.data.story_number) + "話")]
+                  [_vm._v(_vm._s(_vm.data.story_number) + "話")]
                 ),
                 _vm._v(" "),
                 _c("span", { staticClass: "nico-comic-list__item__nico_no" }, [

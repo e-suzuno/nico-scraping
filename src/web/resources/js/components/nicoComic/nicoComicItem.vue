@@ -12,7 +12,7 @@
                    rel="noopener">
                     {{data.title}}
                 </a>
-                <span class="nico-comic-list__item__story_number">掲載:{{data.story_number}}話</span>
+                <span class="nico-comic-list__item__story_number">{{data.story_number}}話</span>
                 <span class="nico-comic-list__item__nico_no">{{data.nico_no}}</span>
                 <template v-if="user.id==1">
                     <button @click="pushFavorite()" type="button" class="btn btn-success rounded-circle p-0"

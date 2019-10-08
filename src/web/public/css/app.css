@@ -10690,10 +10690,12 @@ a.text-dark:focus {
 
 .nico-comic-list__item__story_number {
   font-size: 1rem;
+  margin: 0 5px;
 }
 
 .nico-comic-list__item__nico_no {
   font-weight: normal;
+  margin: 0 5px;
   font-size: 0.8rem;
 }
 
