@@ -54,7 +54,6 @@ class IndexController extends Controller
     {
         $tagList = $this->tagRepository->getAll();
 
-
         $tagList = $tagList->filter(function ($tag, $key) {
             return $tag->tag_type_id !== TagTypeConstant::OFFICIAL_COMIC;
         })->sortBy('tag_type_id')->values()->all();
@@ -81,15 +80,7 @@ class IndexController extends Controller
     }
 
 
-    public function test()
-    {
-
-        $config = \App\Models\Config::all()->first();
-        var_dump($config->scraping_num);
-        $config->scraping_num += 1;
-        $config->save();
 
 
-    }
 
 }

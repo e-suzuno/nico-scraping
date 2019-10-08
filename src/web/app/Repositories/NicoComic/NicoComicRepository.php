@@ -50,6 +50,14 @@ class NicoComicRepository implements NicoComicRepositoryInterface
         }
 
 
+        if (isset($array['word']) && $array['word'] !== "") {
+            $array_word = explode(" ", $array['word']);
+            foreach ($array_word as $_word)
+                $query->where(\DB::raw("CONCAT(title, ' ' , description)"), 'LIKE', '%' . $_word . '%');
+
+        }
+
+
         if (isset($array['tags']) && count($array['tags']) > 0) {
             $query->whereJsonContains('tags_json', array_map('intval', $array['tags']));
         }
@@ -69,6 +77,15 @@ class NicoComicRepository implements NicoComicRepositoryInterface
         if (isset($array['nico_no_to']) && $array['nico_no_to'] > 0) {
             $query->where('nico_no', '<=', $array['nico_no_to']);
         }
+
+
+        if (isset($array['comic_update_date_from']) && $array['comic_update_date_from'] !== "") {
+            $query->where('comic_update_date', '>=', $array['comic_update_date_from']);
+        }
+        if (isset($array['comic_update_date_to']) && $array['comic_update_date_to'] !== "") {
+            $query->where('comic_update_date', '<=', $array['comic_update_date_to']);
+        }
+
 
         //除外リスト
         if (isset($array['exclusionList']) && count($array['exclusionList']) > 0) {

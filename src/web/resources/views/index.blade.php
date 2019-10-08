@@ -11,24 +11,15 @@
 
             <div class="form-group">
                 <div class="row">
-                    <label for="title" class="col-sm-3 control-label">タイトル</label>
+                    <label for="title" class="col-sm-3 control-label">検索ワード</label>
                     <div class="col-sm-9">
-                        <input type="text" name="title" id="title" class="form-control"
-                               v-model="form.title"
+                        <input type="text" name="word" id="word" class="form-control"
+                               v-model="form.word"
                         >
                     </div>
                 </div>
             </div>
 
-            <div class="form-group">
-                <div class="row">
-                    <label for="description" class="col-sm-3 control-label">description</label>
-                    <div class="col-sm-9">
-                        <input type="text" name="description" id="description" class="form-control"
-                               v-model="form.description">
-                    </div>
-                </div>
-            </div>
 
             <div class="form-group">
                 <div class="row">
@@ -102,6 +93,30 @@
                             </div>
                         </div>
                     </template>
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <div class="row">
+                    <label class="col-sm-3 control-label">
+                        最終更新日時
+                    </label>
+
+                    <div class="col-sm-3">
+                        <input type="date" name="comic_update_date_from" id="comic_update_date_from"
+                               class="form-control"
+                               v-model="form.comic_update_date_from">
+                    </div>
+                    <div class="col-sm-1">
+                        ～
+                    </div>
+                    <div class="col-sm-3">
+                        <input type="date" name="comic_update_date_to" id="comic_update_date_to"
+                               class="form-control"
+                               v-model="form.comic_update_date_to">
+                    </div>
+
                 </div>
             </div>
 
@@ -181,6 +196,7 @@
             {id: 'nico_no_desc', name: 'NO 降順',},
             {id: 'story_number_desc', name: '話数多い順',},
             {id: 'update_speed_asc', name: '更新頻度早い順',},
+            {id: 'updated_at_desc', name: '取得順',},
         ];
 
             @guest
@@ -210,8 +226,7 @@
                 'select_type_toggle': "select",
                 'nico_no_form_type': 1,
                 "form": {
-                    'title': "",
-                    'description': "",
+                    'word': "",
                     'tags': [],
                     'story_number_from': 1,
                     'nico_no': '',
@@ -290,8 +305,7 @@
                 // おすすめ検索（謎）
                 recommendedSearch() {
                     this.form = {
-                        'title': "",
-                        'description': "",
+                        'word': "",
                         'tags': [ {{\App\Constants\TagConstant::USER}}],
                         'story_number_from': 10,
                         'nico_no_from': '',
