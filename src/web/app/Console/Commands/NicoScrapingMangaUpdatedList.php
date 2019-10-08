@@ -7,6 +7,7 @@ use App\Repositories\NicoComic\NicoComicRepositoryInterface as NicoComicReposito
 use App\Repositories\Tag\TagRepositoryInterface as TagRepository;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Log;
 
 class NicoScrapingMangaUpdatedList extends Command
 {
@@ -62,7 +63,8 @@ class NicoScrapingMangaUpdatedList extends Command
         $day = $this->argument('day');
 
 
-        $this->info('NicoScraping list ' . $day . 'day');
+        $this->info('scraping:list ' . $day . ' start');
+        Log::info("scraping:list {$day} start");
 
 
         $now = new Carbon(date("Y/m/d"));
@@ -84,6 +86,7 @@ class NicoScrapingMangaUpdatedList extends Command
             $this->info($i . 'page ok. go to next page');
         }
         $this->info('complete');
+        Log::info("scraping:list {$day} complete");
     }
 
 
