@@ -110,7 +110,6 @@ function autoTagCheck($title, $description)
         "異世界",
         "ファンタジー",
         "ロボット",
-        "エロ",
     ];
 
     foreach ($search_tags as $label) {
