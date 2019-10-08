@@ -7,7 +7,9 @@
         </template>
         <template v-else>
             <div class="nico-comic-list__item__title">
-                <a :href="data.url">[ {{data.nico_no}} ]
+                <a :href="data.url"
+                   target="_blank"
+                   rel="noopener">[ {{data.nico_no}} ]
                     {{data.title}}
                 </a>
                 <button @click="pushFavorite()" type="button" class="btn btn-success rounded-circle p-0"
