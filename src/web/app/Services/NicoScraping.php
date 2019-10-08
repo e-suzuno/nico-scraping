@@ -93,6 +93,19 @@ class NicoScraping
         $status_complete_cnt = $crawler->filter('.status_complete');
         $is_complete = ($status_complete_cnt->count() > 0);
 
+        //試し読み
+        $status_trial_cnt = $crawler->filter('.status_trial');
+        $is_trial = ($status_trial_cnt->count() > 0);
+
+        //暴力描写
+        $status_trial_cnt = $crawler->filter('.regulation .gro');
+        $is_gro = ($status_trial_cnt->count() > 0);
+
+        //性的な描写
+        $status_trial_cnt = $crawler->filter('.regulation .adult');
+        $is_adult = ($status_trial_cnt->count() > 0);
+
+
 
         //NGワード系の除外
         if (mb_strpos($main_title, "졸업증명서위조", 0, "UTF-8") !== false) {
@@ -102,7 +115,6 @@ class NicoScraping
         if ($story_number === 0) {
             return false;
         }
-
 
         $data = [
             "title" => trim($main_title),
@@ -116,6 +128,9 @@ class NicoScraping
             "story_number" => $story_number,
             "url" => $url,
             "is_complete" => $is_complete,
+            "is_trial" => $is_trial,
+            "is_gro" => $is_gro,
+            "is_adult" => $is_adult,
         ];
 
         return $data;

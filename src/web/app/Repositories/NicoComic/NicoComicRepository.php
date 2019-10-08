@@ -138,9 +138,17 @@ class NicoComicRepository implements NicoComicRepositoryInterface
         $tags[] = getTagId($data['category'], TagTypeConstant::CATEGORY);
         $tags[] = getTagId($data['official_title'], TagTypeConstant::OFFICIAL_COMIC);
 
-        //完結済みなら完結タグをつける
+
+        // 完結済み、試し読み、グロ、アダルトのタグをつける
         if ($data['is_complete'])
             $tags[] = TagConstant::COMPLETE;
+        if ($data['is_trial'])
+            $tags[] = TagConstant::COMPLETE;
+        if ($data['is_gro'])
+            $tags[] = TagConstant::COMPLETE;
+        if ($data['is_adult'])
+            $tags[] = TagConstant::COMPLETE;
+
 
 
         //文章からのオートタグ

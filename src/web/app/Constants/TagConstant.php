@@ -23,4 +23,20 @@ class TagConstant
     const COMPLETE = 15;
 
 
+    /**
+     * 試し読み
+     */
+    const TRIAL = 16;
+    /**
+     * グロ
+     */
+    const GRO = 17;
+    /**
+     * アダルト
+     */
+    const ADULT = 18;
+
+
+
+
 }
