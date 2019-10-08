@@ -72,25 +72,36 @@
 
             <div class="form-group">
                 <div class="row">
-                    <label class="col-sm-3  control-label">コミック番号</label>
-                    <div class="col-sm-4">
-                        <div class="input-group">
-                            <input type="number" name="nico_no_from" id="nico_no_from" class="form-control"
-                                   v-model="form.nico_no_from">
-                            <div class="input-group-append">
-                                <span class="input-group-text">以上</span>
+                    <label class="col-sm-3 control-label">
+                        コミック番号
+                        <a href="#" @click="nicoNoFormType()">指定変更</a>
+                    </label>
+                    <template v-if="nico_no_form_type==1">
+                        <div class="col-sm-3">
+                            <input type="number" name="nico_no" id="nico_no" class="form-control"
+                                   v-model="form.nico_no">
+                        </div>
+                    </template>
+                    <template v-else-if="nico_no_form_type==2">
+                        <div class="col-sm-3">
+                            <div class="input-group">
+                                <input type="number" name="nico_no_from" id="nico_no_from" class="form-control"
+                                       v-model="form.nico_no_from">
+                                <div class="input-group-append">
+                                    <span class="input-group-text">以上</span>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-sm4">
-                        <div class="input-group">
-                            <input type="number" name="nico_no_to" id="nico_no_to" class="form-control"
-                                   v-model="form.nico_no_to">
-                            <div class="input-group-append">
-                                <span class="input-group-text">以下</span>
+                        <div class="col-sm-3">
+                            <div class="input-group">
+                                <input type="number" name="nico_no_to" id="nico_no_to" class="form-control"
+                                       v-model="form.nico_no_to">
+                                <div class="input-group-append">
+                                    <span class="input-group-text">以下</span>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </template>
                 </div>
             </div>
 
@@ -172,11 +183,11 @@
             {id: 'update_speed_asc', name: '更新頻度早い順',},
         ];
 
-        @guest
-            const user = Object.freeze( {!! new \App\Models\User() !!});
-        @else
-            const user = Object.freeze( {!! \Illuminate\Support\Facades\Auth::user() !!} );
-        @endguest
+            @guest
+        const user = Object.freeze( {!! new \App\Models\User() !!});
+            @else
+        const user = Object.freeze( {!! \Illuminate\Support\Facades\Auth::user() !!} );
+            @endguest
 
 
 
@@ -197,11 +208,13 @@
                 'order_select_options': order_select_options,
                 'uri': "{{route("search-api")}}",
                 'select_type_toggle': "select",
+                'nico_no_form_type': 1,
                 "form": {
                     'title': "",
                     'description': "",
                     'tags': [],
                     'story_number_from': 1,
+                    'nico_no': '',
                     'nico_no_from': '',
                     'nico_no_to': '',
                     'order': 'comic_update_date_desc',
@@ -262,6 +275,17 @@
                         this.select_type_toggle = "select";
                     }
                 },
+                nicoNoFormType() {
+                    if (this.nico_no_form_type == 2) {
+                        this.nico_no_form_type = 1;
+                    } else if (this.nico_no_form_type == 1) {
+                        this.nico_no_form_type = 2;
+                    }
+                    this.form.nico_no = "";
+                    this.form.nico_no_from = "";
+                    this.form.nico_no_to = "";
+                    return;
+                },
 
                 // おすすめ検索（謎）
                 recommendedSearch() {
@@ -272,6 +296,7 @@
                         'story_number_from': 10,
                         'nico_no_from': '',
                         'nico_no_to': '',
+                        'nico_no': '',
                         'order': 'comic_update_date_desc',
                     }
                     this.onSearch();

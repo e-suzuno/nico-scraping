@@ -59,6 +59,10 @@ class NicoComicRepository implements NicoComicRepositoryInterface
             $query->where('story_number', '>=', $array['story_number_from']);
         }
 
+        if (isset($array['nico_no']) && $array['nico_no'] !== "") {
+            $query->where('nico_no', $array['nico_no']);
+        }
+
         if (isset($array['nico_no_from']) && $array['nico_no_from'] > 0) {
             $query->where('nico_no', '>=', $array['nico_no_from']);
         }
@@ -148,7 +152,6 @@ class NicoComicRepository implements NicoComicRepositoryInterface
             $tags[] = TagConstant::GRO;
         if ($data['is_adult'])
             $tags[] = TagConstant::ADULT;
-
 
 
         //文章からのオートタグ
