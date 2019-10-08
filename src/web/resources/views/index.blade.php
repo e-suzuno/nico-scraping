@@ -167,11 +167,13 @@
                 ></nico-comic-list>
             </div>
         </div>
+
         <pagination :data="laravelData" @pagination-change-page="getResults"
-                    :limit="4">
-            <span slot="prev-nav">&lt; Previous</span>
-            <span slot="next-nav">Next &gt;</span>
+                    :limit="3">
+            <span slot="prev-nav">&lt&lt</span>
+            <span slot="next-nav">&gt;&gt;</span>
         </pagination>
+
     </div>
 
 @stop
