@@ -70,7 +70,8 @@ class NicoScrapingMangaUpdatedList extends Command
         $old = new Carbon($now->subDay(7));
 
 
-        for ($i = 1; $i <= 30; $i++) {
+        $max_count = 20 * 7;
+        for ($i = 1; $i <= $max_count; $i++) {
             $this->info($i . 'page start');
             if ($this->nicoListUpdate($i, $old, $latest) === FALSE) {
                 //FALSE が返ってきたら終了
