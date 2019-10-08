@@ -15,7 +15,7 @@ class NicoScrapingMangaUpdatedList extends Command
      *
      * @var string
      */
-    protected $signature = 'scraping:list';
+    protected $signature = 'scraping:list {day=1}';
 
     /**
      * The console command description.
@@ -59,7 +59,10 @@ class NicoScrapingMangaUpdatedList extends Command
      */
     public function handle()
     {
-        $this->info('NicoScraping list');
+        $day = $this->argument('day');
+
+
+        $this->info('NicoScraping list ' . $day . 'day');
 
 
         $now = new Carbon(date("Y/m/d"));
@@ -67,10 +70,10 @@ class NicoScrapingMangaUpdatedList extends Command
 
 
         $now = new Carbon(date("Y/m/d"));
-        $old = new Carbon($now->subDay(7));
+        $old = new Carbon($now->subDay($day));
 
 
-        $max_count = 20 * 7;
+        $max_count = 20 * $day;
         for ($i = 1; $i <= $max_count; $i++) {
             $this->info($i . 'page start');
             if ($this->nicoListUpdate($i, $old, $latest) === FALSE) {
