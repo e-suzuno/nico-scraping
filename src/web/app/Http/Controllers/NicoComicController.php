@@ -55,10 +55,10 @@ class NicoComicController extends Controller
 
         try {
             $input = $request->all();
+
             $select = $this->nicoComicRepository->find($input);
 
             $order = $input['order'] ?? "nico_no_desc";
-
             if ($order === "comic_update_date_desc") {
                 $select->orderBy('comic_update_date', 'desc');
             } else if ($order === "nico_no_desc") {
@@ -70,8 +70,7 @@ class NicoComicController extends Controller
             } else if ($order === "updated_at_desc") {
                 $select->orderBy('updated_at', 'desc');
             }
-
-
+            $select->orderBy("id");
 
 
             $nicoComics = $select->paginate(15);
