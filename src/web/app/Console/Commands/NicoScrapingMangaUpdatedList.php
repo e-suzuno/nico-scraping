@@ -63,10 +63,11 @@ class NicoScrapingMangaUpdatedList extends Command
 
 
         $now = new Carbon(date("Y/m/d"));
-        $old = new Carbon($now->subDay(1));
+        $latest = new Carbon($now->addDay(1));
 
-        $now_2 = new Carbon(date("Y/m/d"));
-        $latest = new Carbon($now_2->addDay(1));
+
+        $now = new Carbon(date("Y/m/d"));
+        $old = new Carbon($now->subDay(7));
 
 
         for ($i = 1; $i <= 30; $i++) {
