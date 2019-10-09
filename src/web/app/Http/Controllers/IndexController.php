@@ -58,7 +58,10 @@ class IndexController extends Controller
             return $tag->tag_type_id !== TagTypeConstant::OFFICIAL_COMIC;
         })->sortBy('tag_type_id')->values()->all();
 
-        return view("index", ["tagList" => $tagList]);
+
+        $nicoComicMaxNicoNo = $this->nicoComicRepository->getMaxNicoNo();
+
+        return view("index", ["tagList" => $tagList, "nicoComicMaxNicoNo" => $nicoComicMaxNicoNo]);
     }
 
 
@@ -78,9 +81,6 @@ class IndexController extends Controller
     {
         return view("exclusion");
     }
-
-
-
 
 
 }
