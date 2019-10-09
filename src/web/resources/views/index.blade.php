@@ -328,8 +328,7 @@
                     this.form.nico_no_to = this.form.nico_no_from + 1000;
 
                     let random_1 = Math.floor(Math.random() * (order_select_options.length + 1));
-                    this.form.order = order_select_options[random_2].id;
-
+                    this.form.order = order_select_options[random_1].id;
 
                     this.onSearch();
                 },
