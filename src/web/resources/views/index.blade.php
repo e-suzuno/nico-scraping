@@ -323,12 +323,13 @@
                         'order': 'comic_update_date_desc',
                     }
 
-                    this.form.story_number_from = Math.floor(Math.random() * 101);
+                    this.form.story_number_from = Math.floor(Math.random() * 26);
                     this.form.nico_no_from = Math.floor(Math.random() * 40001);
                     this.form.nico_no_to = this.form.nico_no_from + 1000;
 
-                    let random_2 = Math.floor(Math.random() * 4);
-                    this.form.order =  order_select_options[random_2].val;
+                    let random_1 = Math.floor(Math.random() * (order_select_options.length + 1));
+                    this.form.order = order_select_options[random_2].id;
+
 
                     this.onSearch();
                 },
