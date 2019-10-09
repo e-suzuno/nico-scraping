@@ -3,8 +3,10 @@
 namespace App\Models;
 
 
+use App\Constants\TagConstant;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Log;
 
 /**
  * Class NicoComic
@@ -20,6 +22,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property integer story_number
  * @property Carbon comic_start_date
  * @property Carbon comic_update_date
+ * @property double update_speed
  * @property Carbon created_at
  * @property Carbon updated_at
  * @property string url
@@ -36,7 +39,7 @@ class NicoComic extends Model
     ];
 
     protected $appends = [
-        'url', 'has_tags',
+        'url', 'has_tags', 'eta'
     ];
 
     protected $guarded = [''];
@@ -57,6 +60,33 @@ class NicoComic extends Model
     {
         return $this->hasTags();
     }
+
+
+    /**
+     * 休止の予感(エタっているかどうか)
+     * @return bool
+     */
+    public function getEtaAttribute()
+    {
+        if (in_array(TagConstant::COMPLETE, $this->tags_json))
+            return false;
+        if ($this->update_speed === 0) {
+            return false;
+        }
+        if ($this->update_speed <= 10) {
+            $padding_dya = 10;
+            $padding_reta = 1;
+        } else {
+            $padding_dya = 1;
+            $padding_reta = 1.5;
+        }
+
+        $day = Carbon::create($this->comic_update_date);
+        $day->addDay(floor($this->update_speed * $padding_reta) + $padding_dya);
+        $now = Carbon::now();
+        return $now->gt($day);
+    }
+
 
 
     /**
