@@ -141,8 +141,8 @@
                             リセット
                         </button>
 
-                        <button class="btn btn-dark" @click="recommendedSearch">
-                            <i class="fa fa-btn fa-plus"></i> おすすめ検索
+                        <button class="btn btn-dark" @click="randomSearch">
+                            <i class="fa fa-btn fa-plus"></i> ランダムサーチ
                         </button>
                     </div>
                 </div>
@@ -310,6 +310,26 @@
                         'nico_no': '',
                         'order': 'comic_update_date_desc',
                     }
+                    this.onSearch();
+                },
+                randomSearch() {
+                    this.form = {
+                        'word': "",
+                        'tags': [ {{\App\Constants\TagConstant::USER}}],
+                        'story_number_from': 10,
+                        'nico_no_from': '',
+                        'nico_no_to': '',
+                        'nico_no': '',
+                        'order': 'comic_update_date_desc',
+                    }
+
+                    this.form.story_number_from = Math.floor(Math.random() * 101);
+                    this.form.nico_no_from = Math.floor(Math.random() * 40001);
+                    this.form.nico_no_to = this.form.nico_no_from + 1000;
+
+                    let random_2 = Math.floor(Math.random() * 4);
+                    this.form.order =  order_select_options[random_2].val;
+
                     this.onSearch();
                 },
 
