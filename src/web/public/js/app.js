@@ -1943,6 +1943,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "nicoComicItem",
   props: ['item', 'user'],
@@ -38854,11 +38860,29 @@ var render = function() {
                 _vm._v(_vm._s(_vm.data.comic_update_date))
               ]),
               _vm._v(" "),
-              _vm.data.eta
+              _vm.data.eta == 1
+                ? _c(
+                    "span",
+                    { staticClass: " badge badge-complete badge-pill" },
+                    [
+                      _vm._v(
+                        "\n                " +
+                          _vm._s(_vm.data.eta_label) +
+                          "\n            "
+                      )
+                    ]
+                  )
+                : _vm.data.eta == 3
                 ? _c(
                     "span",
                     { staticClass: " badge badge-warning badge-pill" },
-                    [_vm._v("\n                休止の予感\n            ")]
+                    [
+                      _vm._v(
+                        "\n                " +
+                          _vm._s(_vm.data.eta_label) +
+                          "\n            "
+                      )
+                    ]
                   )
                 : _vm._e()
             ]),

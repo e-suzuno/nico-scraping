@@ -39,7 +39,10 @@ class NicoComic extends Model
     ];
 
     protected $appends = [
-        'url', 'has_tags', 'eta'
+        'url',
+        'has_tags',
+        'eta',
+        'eta_label',
     ];
 
     protected $guarded = [''];
@@ -64,29 +67,46 @@ class NicoComic extends Model
 
     /**
      * 休止の予感(エタっているかどうか)
-     * @return bool
+     *
+     * @return int
      */
     public function getEtaAttribute()
     {
         if (in_array(TagConstant::COMPLETE, $this->tags_json))
-            return false;
-        if ($this->update_speed === 0) {
-            return false;
-        }
+            return 1;
+        if (in_array(TagConstant::USER, $this->tags_json) && $this->story_number === 100)
+            return 1;
+
+        if ($this->update_speed === 0)
+            return 2;
+
         if ($this->update_speed <= 10) {
             $padding_dya = 10;
             $padding_reta = 1;
         } else {
-            $padding_dya = 1;
+            $padding_dya = 5;
             $padding_reta = 1.5;
         }
 
         $day = Carbon::create($this->comic_update_date);
         $day->addDay(floor($this->update_speed * $padding_reta) + $padding_dya);
         $now = Carbon::now();
-        return $now->gt($day);
+        return $now->gt($day) ? 3 : 4;
     }
 
+
+    /**
+     * @return string
+     */
+    public function getEtaLabelAttribute()
+    {
+        if ($this->eta === 1)
+            return "完結済み";
+        if ($this->eta === 3)
+            return "休止状態";
+
+        return "";
+    }
 
 
     /**

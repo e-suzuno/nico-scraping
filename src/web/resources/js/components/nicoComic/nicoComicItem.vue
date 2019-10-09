@@ -27,10 +27,16 @@
                 連載期間：<span class="comic_start_date">{{data.comic_start_date}}</span>
                 -> <span class="comic_update_date">{{data.comic_update_date}}</span>
 
-                <span v-if="data.eta"
-                      class=" badge badge-warning badge-pill">
-                    休止の予感
+                <span v-if="data.eta==1"
+                      class=" badge badge-complete badge-pill">
+                    {{data.eta_label}}
                 </span>
+                <span v-else-if="data.eta==3"
+                      class=" badge badge-warning badge-pill">
+                    {{data.eta_label}}
+                </span>
+
+
             </div>
             <div class="nico-comic-list__item__update_at">
                 最終取得：{{data.updated_at}}
