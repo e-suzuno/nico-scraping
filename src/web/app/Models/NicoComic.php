@@ -81,10 +81,10 @@ class NicoComic extends Model
             return 2;
 
         if ($this->update_speed <= 10) {
-            $padding_dya = 10;
+            $padding_dya = 30;
             $padding_reta = 1;
         } else {
-            $padding_dya = 5;
+            $padding_dya = 15;
             $padding_reta = 1.5;
         }
 
