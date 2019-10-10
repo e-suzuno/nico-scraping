@@ -72,7 +72,8 @@ class NicoComicController extends Controller
             } else if ($order === "updated_at_desc") {
                 $select->orderBy('updated_at', 'desc');
             }
-            $select->orderBy("comic_update_date", 'asc');
+
+            $select->orderBy("updated_at", 'desc')->orderBy("nico_no", 'desc');
 
 
             $nicoComics = $select->paginate(15);
