@@ -72,7 +72,7 @@ class NicoComicController extends Controller
             } else if ($order === "updated_at_desc") {
                 $select->orderBy('updated_at', 'desc');
             }
-            $select->orderBy("id");
+            $select->orderBy("comic_update_date", 'asc');
 
 
             $nicoComics = $select->paginate(15);
@@ -87,18 +87,6 @@ class NicoComicController extends Controller
         return $response;
     }
 
-
-    /**
-     *
-     * xclusionList: [26419, 18834, 23512, 24321, 27564, 20110, 12439, 42816, 1]
-     * nico_no: ""
-     * nico_no_from: ""
-     * nico_no_to: ""
-     * order: "comic_update_date_desc"
-     * story_number_from: 1
-     * tags: []
-     * word: ""
-     */
 
 
     /**

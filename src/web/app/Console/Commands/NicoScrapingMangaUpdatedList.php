@@ -67,50 +67,47 @@ class NicoScrapingMangaUpdatedList extends Command
         Log::info("scraping:list {$day} start");
 
 
-        $now = new Carbon(date("Y/m/d"));
-        $latest = new Carbon($now->addDay(1));
+        $latest = Carbon::now()->endOfDay();
 
+        $subDay = $day - 1;
 
-        $now = new Carbon(date("Y/m/d"));
-        $old = new Carbon($now->subDay($day));
+        $old = new Carbon(Carbon::now()->subDay($subDay)->startOfDay());
 
+        $updateList = array_reverse( $this->getUpdateList($day, $old, $latest) );
 
-        $max_count = 20 * $day;
-        for ($i = 1; $i <= $max_count; $i++) {
-            $this->info($i . 'page start');
-            if ($this->nicoListUpdate($i, $old, $latest) === FALSE) {
-                //FALSE が返ってきたら終了
-                break;
+        foreach ($updateList as $row) {
+            $nicoComic = $this->nicoComicRepository->findByNicoNo($row["nico_no"]);
+            if($nicoComic){
+                if ($row['comic_update_date']->isSameDay($nicoComic->comic_update_date)) {
+                    continue;
+                }
             }
-            sleep(1);
-            $this->info($i . 'page ok. go to next page');
+            $this->nicoComicRepository->saveNicoScraping($row['nico_no']);
         }
+
         $this->info('complete');
         Log::info("scraping:list {$day} complete");
     }
 
 
-    /**
-     * @param int $page
-     * @param Carbon $old
-     * @param Carbon $latest
-     * @return bool
-     */
-    public function nicoListUpdate(int $page, Carbon $old, Carbon $latest)
+    protected function getUpdateList($day, $old, $latest)
     {
-
-        $list = \NicoScraping::getNicoList($page);
-        foreach ($list as $row) {
-            $nico_no = $row['nico_no'];
-            $comic_update_date = $row['comic_update_date'];
-
-            if ($comic_update_date->between($old, $latest) === false) {
-                return false;
+        $updateList = [];
+        $max_count = 20 * $day;
+        for ($page = 1; $page <= $max_count; $page++) {
+            $list = \NicoScraping::getNicoList($page);
+            $collection = collect($list)->filter(function ($row, $key) use ($old, $latest) {
+                $comic_update_date = $row['comic_update_date'];
+                if (!($comic_update_date->gte($old) && $comic_update_date->lte($latest))) {
+                    return false;
+                }
+                return true;
+            });
+            foreach ($collection->all() as $row) {
+                $updateList[] = $row;
             }
-
-            $this->nicoComicRepository->saveNicoScraping($nico_no);
         }
-        return true;
+        return $updateList;
     }
 
 

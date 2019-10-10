@@ -6,6 +6,17 @@ namespace App\Services;
 class NicoScraping
 {
 
+    static $client;
+
+
+    static public function getClient()
+    {
+        if (isset(self::$client) === false) {
+            self::$client = new \Goutte\Client();
+        }
+        return self::$client;
+    }
+
     /**
      * コミックのＵＲＬを返す
      *
@@ -37,7 +48,7 @@ class NicoScraping
     public static function getNicoComicTargetPage($no)
     {
         $url = self::comic_url($no);
-        $cli = new \Goutte\Client();
+        $cli = self::getClient();
         $crawler = $cli->request('GET', $url);
 
         $error_cnt = $crawler->filter('#error_cnt');
@@ -106,7 +117,6 @@ class NicoScraping
         $is_adult = ($status_trial_cnt->count() > 0);
 
 
-
         //NGワード系の除外
         if (mb_strpos($main_title, "졸업증명서위조", 0, "UTF-8") !== false) {
             return false;
@@ -137,10 +147,15 @@ class NicoScraping
     }
 
 
+    /**
+     * @param $page
+     * @return array|bool
+     */
     public static function getNicoList($page)
     {
+
         $url = self::manga_updated_url($page);
-        $cli = new \Goutte\Client();
+        $cli = self::getClient();
         $crawler = $cli->request('GET', $url);
 
         $mg_item_cnt = $crawler->filter('.mg_item');
