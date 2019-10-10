@@ -83,6 +83,8 @@ class NicoScrapingMangaUpdatedList extends Command
                 }
             }
             $this->nicoComicRepository->saveNicoScraping($row['nico_no']);
+            //更新時間をずらすためにスリープ処理の追加
+            sleep(1);
         }
 
         $this->info('complete');
