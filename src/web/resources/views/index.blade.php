@@ -326,7 +326,7 @@
                     this.form.nico_no_from = Math.floor(Math.random() * {{ $nicoComicMaxNicoNo+1 }});
                     this.form.nico_no_to = this.form.nico_no_from + 1000;
 
-
+                    this.nico_no_form_type = 2;
                     this.onSearch();
                 },
 
