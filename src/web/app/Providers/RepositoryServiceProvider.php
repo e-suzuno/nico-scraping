@@ -19,10 +19,6 @@ class RepositoryServiceProvider extends ServiceProvider
         );
 
 
-        $this->app->bind(  // ①
-            'nico_scraping',
-            \App\Services\NicoScraping::class
-        );
 
     }
 

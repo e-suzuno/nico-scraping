@@ -17,6 +17,19 @@ class AppServiceProvider extends ServiceProvider
             $this->app->register(\Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class);
         }
         //
+
+
+        $this->app->bind(
+            'nico_scraping',
+            \App\Services\NicoScraping::class
+        );
+
+        $this->app->bind(
+            'tag',
+            \App\Services\Tag::class
+        );
+
+
     }
 
     /**

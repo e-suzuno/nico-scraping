@@ -240,9 +240,9 @@ return [
         'Html' => Collective\Html\HtmlFacade::class,
 
 
-
         // ...
         'NicoScraping' => App\Facades\NicoScraping::class,
+        'Tag' => App\Facades\Tag::class,
 
     ],
 

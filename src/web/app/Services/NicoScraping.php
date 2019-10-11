@@ -3,27 +3,51 @@
 namespace App\Services;
 
 
+/**
+ * Class NicoScraping
+ * @package App\Services
+ */
 class NicoScraping
 {
 
-    static $client;
+    /**
+     * @var \Goutte\Client
+     */
+    public $client;
 
 
-    static public function getClient()
+    /**
+     * 取り込み拒否リスト
+     * @var array
+     */
+    public $ng_text_array = [
+        "졸업증명서위조" //なんか同一タイトルの荒らしっぽい漫画が複数存在したので除去
+    ];
+
+
+    /**
+     * NicoScraping constructor.
+     */
+    public function __construct()
     {
-        if (isset(self::$client) === false) {
-            self::$client = new \Goutte\Client();
-        }
-        return self::$client;
+        $this->client = new \Goutte\Client();
+    }
+
+    /**
+     * @return \Goutte\Client
+     */
+    public function getClient()
+    {
+        return $this->client;
     }
 
     /**
      * コミックのＵＲＬを返す
      *
-     * @param $no
+     * @param int $no
      * @return string
      */
-    public static function comic_url($no)
+    public function comic_url(int $no)
     {
         return "http://seiga.nicovideo.jp/comic/{$no}";
     }
@@ -32,23 +56,23 @@ class NicoScraping
     /**
      * 更新が新しい順のリストのURL
      *
-     * @param $page
+     * @param int $page
      * @return string
      */
-    public static function manga_updated_url($page)
+    public function manga_updated_url(int $page)
     {
         return "http://seiga.nicovideo.jp/manga/list?page={$page}&sort=manga_updated";
     }
 
 
     /**
-     * @param $no
+     * @param int $no
      * @return array|bool   falseなら失敗
      */
-    public static function getNicoComicTargetPage($no)
+    public function getNicoComicTargetPage(int $no)
     {
-        $url = self::comic_url($no);
-        $cli = self::getClient();
+        $url = $this->comic_url($no);
+        $cli = $this->getClient();
         $crawler = $cli->request('GET', $url);
 
         $error_cnt = $crawler->filter('#error_cnt');
@@ -118,9 +142,12 @@ class NicoScraping
 
 
         //NGワード系の除外
-        if (mb_strpos($main_title, "졸업증명서위조", 0, "UTF-8") !== false) {
-            return false;
+        foreach ($this->ng_text_array as $ng_text) {
+            if (mb_strpos($main_title, $ng_text, 0, "UTF-8") !== false) {
+                return false;
+            }
         }
+
         //掲載数 0も除外
         if ($story_number === 0) {
             return false;
@@ -148,14 +175,14 @@ class NicoScraping
 
 
     /**
-     * @param $page
+     * @param int $page
      * @return array|bool
      */
-    public static function getNicoList($page)
+    public function getNicoList(int $page)
     {
 
-        $url = self::manga_updated_url($page);
-        $cli = self::getClient();
+        $url = $this->manga_updated_url($page);
+        $cli = $this->getClient();
         $crawler = $cli->request('GET', $url);
 
         $mg_item_cnt = $crawler->filter('.mg_item');
@@ -190,9 +217,7 @@ class NicoScraping
             ];
         });
 
-
         return $list;
-
     }
 
 }
