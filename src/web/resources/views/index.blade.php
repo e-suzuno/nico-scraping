@@ -221,7 +221,7 @@
                 'nico_no_form_type': 1,
                 "form": {
                     'word': "",
-                    'tags': [],
+                    'tags': [ {{\App\Constants\TagConstant::USER}}],
                     'story_number_from': 1,
                     'nico_no': '',
                     'nico_no_from': '',
