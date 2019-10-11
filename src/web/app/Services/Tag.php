@@ -101,7 +101,7 @@ class Tag
     public function autoTagCheck($target_string)
     {
         $tags = [];
-        foreach ($this->search_tags as $label) {
+        foreach ($this->auto_search_tags as $label) {
             if (mb_strpos($target_string, $label, 0, "UTF-8") !== false) {
                 $tags[] = getTagId($label, TagTypeConstant::AUTO_TAG);
             };
