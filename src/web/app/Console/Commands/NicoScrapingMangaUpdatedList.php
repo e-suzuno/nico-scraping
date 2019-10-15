@@ -69,7 +69,7 @@ class NicoScrapingMangaUpdatedList extends Command
 
         $latest = Carbon::now()->endOfDay();
 
-        $subDay = $day - 1;
+        $subDay = $day;
 
         $old = new Carbon(Carbon::now()->subDay($subDay)->startOfDay());
 
