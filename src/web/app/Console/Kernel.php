@@ -26,7 +26,13 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')
         //          ->hourly();
+
+        $schedule->command('scraping:list 1')
+            ->hourlyAt(5)
+            ->timezone('Asia/Tokyo')
+            ->withoutOverlapping();
     }
+
 
     /**
      * Register the commands for the application.
