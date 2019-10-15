@@ -3,6 +3,7 @@
 namespace App\Models;
 
 
+use App\Constants\EtaLabelConstant;
 use App\Constants\TagConstant;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
@@ -73,12 +74,12 @@ class NicoComic extends Model
     public function getEtaAttribute()
     {
         if (in_array(TagConstant::COMPLETE, $this->tags_json))
-            return 1;
+            return EtaLabelConstant::COMPLETE;
         if (in_array(TagConstant::USER, $this->tags_json) && $this->story_number === 100)
-            return 1;
+            return EtaLabelConstant::COMPLETE;
 
         if ($this->update_speed === 0)
-            return 2;
+            return EtaLabelConstant::UNKNOWN;
 
         if ($this->update_speed <= 10) {
             $padding_dya = 30;
@@ -91,7 +92,7 @@ class NicoComic extends Model
         $day = Carbon::create($this->comic_update_date);
         $day->addDay(floor($this->update_speed * $padding_reta) + $padding_dya);
         $now = Carbon::now();
-        return $now->gt($day) ? 3 : 4;
+        return $now->gt($day) ? EtaLabelConstant::HIBERNATE : EtaLabelConstant::NONE;
     }
 
 
@@ -100,11 +101,9 @@ class NicoComic extends Model
      */
     public function getEtaLabelAttribute()
     {
-        if ($this->eta === 1)
-            return "完結済み";
-        if ($this->eta === 3)
-            return "休止状態";
-
+        if (isset(EtaLabelConstant::NAMES[$this->eta])) {
+            return EtaLabelConstant::NAMES[$this->eta];
+        }
         return "";
     }
 
