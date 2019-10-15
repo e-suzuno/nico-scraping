@@ -2,9 +2,12 @@
 
 namespace App\Constants;
 
+/**
+ * Class EtaLabelConstant
+ * @package App\Constants
+ */
 class EtaLabelConstant
 {
-
 
     /**
      * 完結済み
@@ -30,12 +33,34 @@ class EtaLabelConstant
     const NONE = 4;
 
 
-    const NAMES = [
+    const LABELS = [
         self::COMPLETE => "完結済み",
         self::UNKNOWN => "",
         self::HIBERNATE => "休止状態",
         self::NONE => "",
     ];
+
+
+    /**
+     * @return array
+     */
+    public static function getLabels()
+    {
+        return self::LABELS;
+    }
+
+    /**
+     * @param $key
+     * @return mixed
+     * @throws \Exception
+     */
+    public static function getLabel($key)
+    {
+        if (!isset(self::getLabels()[$key])) {
+            throw new \Exception(get_called_class() . ' 設定されていない key:' . $key . 'にアクセスされました。');
+        }
+        return self::getLabels()[$key];
+    }
 
 
 }

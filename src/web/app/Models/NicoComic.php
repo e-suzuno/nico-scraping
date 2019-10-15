@@ -97,14 +97,12 @@ class NicoComic extends Model
 
 
     /**
-     * @return string
+     * @return mixed
+     * @throws \Exception
      */
     public function getEtaLabelAttribute()
     {
-        if (isset(EtaLabelConstant::NAMES[$this->eta])) {
-            return EtaLabelConstant::NAMES[$this->eta];
-        }
-        return "";
+        return EtaLabelConstant::getLabel($this->eta);
     }
 
 

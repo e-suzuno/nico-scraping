@@ -2,6 +2,10 @@
 
 namespace App\Constants;
 
+/**
+ * Class TagTypeConstant
+ * @package App\Constants
+ */
 class TagTypeConstant
 {
 
