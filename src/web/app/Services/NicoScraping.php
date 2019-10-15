@@ -198,7 +198,7 @@ class NicoScraping
             if (preg_match('/\/comic\/([0-9]*)\?track=list/', $href, $match)) {
                 $nico_no = (int)$match[1];
             } else {
-                //失敗？
+                //ニコ番号取得できず
                 return false;
             }
 
@@ -206,8 +206,7 @@ class NicoScraping
             if (preg_match('/([1-9][0-9]{3})\/(0[1-9]{1}|1[0-2]{1})\/(0[1-9]{1}|[1-2]{1}[0-9]{1}|3[0-1]{1})/', $updated, $date_match)) {
                 $comic_update_date = new \Carbon\Carbon($date_match[1] . $date_match[2] . $date_match[3]);
             } else {
-
-                //失敗？
+                //更新日時の取得できず
                 return false;
             }
 
