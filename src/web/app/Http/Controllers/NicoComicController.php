@@ -61,19 +61,25 @@ class NicoComicController extends Controller
             $select = $this->nicoComicRepository->find($input);
 
             $order = $input['order'] ?? "nico_no_desc";
-            if ($order === "comic_update_date_desc") {
-                $select->orderBy('comic_update_date', 'desc');
-            } else if ($order === "nico_no_desc") {
-                $select->orderBy('nico_no', 'desc');
-            } else if ($order === "story_number_desc") {
-                $select->orderBy('story_number', 'desc');
-            } else if ($order === "update_speed_asc") {
-                $select->orderBy('update_speed', 'asc');
-            } else if ($order === "updated_at_desc") {
-                $select->orderBy('updated_at', 'desc');
+
+
+            if ($order === "random") {
+                $select->inRandomOrder();
+            }else{
+                if ($order === "comic_update_date_desc") {
+                    $select->orderBy('comic_update_date', 'desc');
+                } else if ($order === "nico_no_desc") {
+                    $select->orderBy('nico_no', 'desc');
+                } else if ($order === "story_number_desc") {
+                    $select->orderBy('story_number', 'desc');
+                } else if ($order === "update_speed_asc") {
+                    $select->orderBy('update_speed', 'asc');
+                } else if ($order === "updated_at_desc") {
+                    $select->orderBy('updated_at', 'desc');
+                }
+                $select->orderBy("updated_at", 'desc')->orderBy("nico_no", 'desc');
             }
 
-            $select->orderBy("updated_at", 'desc')->orderBy("nico_no", 'desc');
 
 
             $nicoComics = $select->paginate(15);
@@ -87,7 +93,6 @@ class NicoComicController extends Controller
         }
         return $response;
     }
-
 
 
     /**

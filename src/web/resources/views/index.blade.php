@@ -191,6 +191,7 @@
             {id: 'nico_no_desc', name: 'NO 降順',},
             {id: 'story_number_desc', name: '話数多い順',},
             {id: 'updated_at_desc', name: '最終取得順',},
+            {id:'random', name:'ランダム（仮）'}
         ];
 
             @guest
@@ -319,12 +320,12 @@
                         'nico_no_from': '',
                         'nico_no_to': '',
                         'nico_no': '',
-                        'order': 'comic_update_date_desc',
+                        'order': 'random',
                     }
 
-                    this.form.story_number_from = Math.floor(Math.random() * 26);
+                    this.form.story_number_from = Math.floor(Math.random() * 15);
                     this.form.nico_no_from = Math.floor(Math.random() * {{ $nicoComicMaxNicoNo+1 }});
-                    this.form.nico_no_to = this.form.nico_no_from + 1000;
+                    this.form.nico_no_to = this.form.nico_no_from + 1500;
 
                     this.nico_no_form_type = 2;
                     this.onSearch();
