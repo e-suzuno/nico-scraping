@@ -127,7 +127,7 @@
                 </div>
                 <div class="col-sm-6">
                     <button class="btn btn-info" @click="onSearch">
-                        <i class="fa fa-btn fa-plus"></i> 検索
+                        <i class="fas fa-search"></i> 検索
                     </button>
 
 
@@ -136,7 +136,7 @@
                     </button>
 
                     <button class="btn btn-dark" @click="randomSearch">
-                        <i class="fa fa-btn fa-plus"></i> ランダムサーチ
+                        <i class="fab fa-searchengin"></i> ランダムサーチ
                     </button>
                 </div>
             </div>

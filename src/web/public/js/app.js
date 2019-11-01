@@ -46235,7 +46235,7 @@ var render = function() {
             "button",
             { staticClass: "btn btn-info", on: { click: _vm.onSearch } },
             [
-              _c("i", { staticClass: "fa fa-btn fa-plus" }),
+              _c("i", { staticClass: "fas fa-search" }),
               _vm._v(" 検索\n                ")
             ]
           ),
@@ -46250,7 +46250,7 @@ var render = function() {
             "button",
             { staticClass: "btn btn-dark", on: { click: _vm.randomSearch } },
             [
-              _c("i", { staticClass: "fa fa-btn fa-plus" }),
+              _c("i", { staticClass: "fab fa-searchengin" }),
               _vm._v(" ランダムサーチ\n                ")
             ]
           )
