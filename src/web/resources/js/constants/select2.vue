@@ -5,6 +5,7 @@
 </template>
 
 <script>
+
     export default {
         name: "select2",
         props: ['options', 'value'],
@@ -15,7 +16,7 @@
                 .val(this.value)
                 .trigger('change')
                 .on('change', function () {
-                 //   vm.$emit('input', this.value)
+                    //   vm.$emit('input', this.value)
                     vm.$emit('input', $(this).val());
                 })
         },

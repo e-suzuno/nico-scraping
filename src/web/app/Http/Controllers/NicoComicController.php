@@ -51,8 +51,10 @@ class NicoComicController extends Controller
      * @param Request $request
      * @return mixed
      */
-    public function search(NicoComicPost $request)
+
+    public function index(NicoComicPost $request)
     {
+
 
         try {
 
@@ -65,7 +67,7 @@ class NicoComicController extends Controller
 
             if ($order === "random") {
                 $select->inRandomOrder();
-            }else{
+            } else {
                 if ($order === "comic_update_date_desc") {
                     $select->orderBy('comic_update_date', 'desc');
                 } else if ($order === "nico_no_desc") {
@@ -81,7 +83,6 @@ class NicoComicController extends Controller
             }
 
 
-
             $nicoComics = $select->paginate(15);
 
             $response = \Response::json($nicoComics, 200);
@@ -92,64 +93,6 @@ class NicoComicController extends Controller
             ), 400);
         }
         return $response;
-    }
-
-
-    /**
-     * @param Request $request
-     * @return mixed
-     */
-    public function addTag(Request $request)
-    {
-        try {
-            $input = $request->all();
-            $this->nicoComicRepository->addTag($input['no'], $input['tag_id']);
-
-            $nicoComic = $this->nicoComicRepository->findByNicoNo($input['no']);
-
-            $response = \Response::json(array(
-                'status' => true,
-                'message' => "success",
-                'item' => $nicoComic,
-            ), 200);
-
-        } catch (\Exception $e) {
-            $response = \Response::json(array(
-                'status' => false,
-                'message' => $e->getMessage()
-            ), 400);
-        }
-        return $response;
-
-    }
-
-
-    /**
-     * @param Request $request
-     * @return mixed
-     */
-    public function addTagAdminRecommended(Request $request)
-    {
-        try {
-            $input = $request->all();
-            $this->nicoComicRepository->addTag($input['no'], TagConstant::ADMIN_RECOMMENDED);
-
-            $nicoComic = $this->nicoComicRepository->findByNicoNo($input['no']);
-
-            $response = \Response::json(array(
-                'status' => true,
-                'message' => "success",
-                'item' => $nicoComic,
-            ), 200);
-
-        } catch (\Exception $e) {
-            $response = \Response::json(array(
-                'status' => false,
-                'message' => $e->getMessage()
-            ), 400);
-        }
-        return $response;
-
     }
 
 

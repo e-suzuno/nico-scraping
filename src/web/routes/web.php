@@ -17,25 +17,10 @@ Route::get('/', function () {
 });
 */
 
-Route::get('/', 'IndexController@index')->name("index");
-Route::get('/about', 'IndexController@about')->name("about");
-Route::get('/exclusion', 'IndexController@exclusion')->name("exclusion");
 
 
+Route::any('{all}', function () {
+    return view('app');
+})->where(['all' => '.*']);
 
-Route::post('/search-api', 'NicoComicController@search')->name("search-api");
-Route::post('/add-tag-api', 'NicoComicController@addTag')->name("add-tag-api");
-Route::post('/add-tag-recommended-api', 'NicoComicController@addTagAdminRecommended')->name("add-tag-recommended-api");
-
-
-
-//登録は削除
-Auth::routes(['register' => false]);
-
-Route::middleware(['auth'])->group(function () {
-    Route::get('/home', 'HomeController@index')->name('home');
-    Route::get('/info', 'HomeController@info')->name('info');
-
-
-});
 

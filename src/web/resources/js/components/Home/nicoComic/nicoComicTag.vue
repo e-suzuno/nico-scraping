@@ -1,5 +1,5 @@
 <template>
-    <span :class="`nico-comic-list__item__tag badge ` + tag_class() ">{{ tag.label }}</span>
+    <span :class="`nico-comic-list__item__tag badge ` + tagClass() ">{{ tag.label }}</span>
 </template>
 
 <script>
@@ -9,7 +9,7 @@
             'tag',
         ],
         methods: {
-            tag_class() {
+            tagClass() {
                 if (this.tag.id == 15) {
                     return "badge-complete";
                 }

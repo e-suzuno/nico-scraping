@@ -9,8 +9,13 @@
 </template>
 
 <script>
+
+    import nicoComicItem from './nicoComicItem'
     export default {
         name: "nicoComicList",
+        components: {
+            'nico-comic-item': nicoComicItem,
+        },
         props: [
             'value',
             'user',

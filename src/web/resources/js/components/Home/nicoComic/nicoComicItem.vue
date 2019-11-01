@@ -57,8 +57,18 @@
 </template>
 
 <script>
+
+    import {RepositoryFactory} from '../../../repositories/RepositoryFactory';
+    const exclusionRepository = RepositoryFactory.get('exclusion');
+
+
+    import nicoComicTag from "./nicoComicTag"
+
     export default {
         name: "nicoComicItem",
+        components: {
+            'nico-comic-tag': nicoComicTag,
+        },
         props: [
             'item',
             'user'
@@ -80,7 +90,7 @@
                 //除外
                 if (confirm("除外しますか？") === true) {
                     alert("除外リストに追加しました。");
-                    exclusionStore.addExclusionList(this.data.nico_no);
+                    exclusionRepository.add(this.data.nico_no);
                     this.exclusion = true;
                 }
             },

@@ -1,3 +1,4 @@
 export default Object.freeze({
-    ADD_TAG_URL: "/add-tag-recommended-api",
+    USER_TAG: 1,
+    MAX_NICO_NO: 50000,
 })

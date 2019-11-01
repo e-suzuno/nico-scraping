@@ -26,6 +26,7 @@ class HomeController extends Controller
     }
 
 
+
     public function info()
     {
 
@@ -33,9 +34,7 @@ class HomeController extends Controller
         if (!$config) {
             $config = new Config(['scraping_num' => 1]);
         }
-
         $scraping_num = $config->scraping_num;
-
 
         return view('info', ['scraping_num' => $scraping_num]);
     }
