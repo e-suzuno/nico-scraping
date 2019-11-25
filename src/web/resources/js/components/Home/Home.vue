@@ -9,7 +9,6 @@
                     v-model="formData"
                     v-on:onSearch="onSearch"
                 >
-                    nicoComicForm
                 </nicoComicForm>
             </div>
         </div>
@@ -46,9 +45,9 @@
 <script>
 
     import {RepositoryFactory} from '../../repositories/RepositoryFactory';
+
     const nicoComicRepository = RepositoryFactory.get('nicoComic');
     const exclusionRepository = RepositoryFactory.get('exclusion');
-
 
 
     import nicoComicForm from './Form';
@@ -71,7 +70,7 @@
                 "init": {},
                 "formData": {
                     'word': "",
-                    'tags': [],
+                    'tags': [config.USER_TAG],
                     'story_number_from': 1,
                     'nico_no': '',
                     'nico_no_from': '',

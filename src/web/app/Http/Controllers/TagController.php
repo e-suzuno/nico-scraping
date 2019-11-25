@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Constants\TagConstant;
 use App\Constants\TagTypeConstant;
-use App\Http\Requests\NicoComicPost;
 use App\Models\NicoComics;
 use App\Repositories\NicoComic\NicoComicRepositoryInterface AS NicoComicRepository;
 use App\Repositories\Tag\TagRepositoryInterface as TagRepository;

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Constants\TagConstant;
+
 use App\Http\Requests\NicoComicPost;
 use App\Models\NicoComics;
 use App\Repositories\NicoComic\NicoComicRepositoryInterface AS NicoComicRepository;
@@ -48,10 +48,9 @@ class NicoComicController extends Controller
 
 
     /**
-     * @param Request $request
-     * @return mixed
+     * @param NicoComicPost $request
+     * @return \Illuminate\Http\JsonResponse
      */
-
     public function index(NicoComicPost $request)
     {
 
@@ -86,6 +85,25 @@ class NicoComicController extends Controller
             $nicoComics = $select->paginate(15);
 
             $response = \Response::json($nicoComics, 200);
+        } catch (\Exception $e) {
+            $response = \Response::json(array(
+                'status' => false,
+                'message' => $e->getMessage()
+            ), 400);
+        }
+        return $response;
+    }
+
+
+    /**
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function show(int $id)
+    {
+        try {
+            $nicoComic = $this->nicoComicRepository->findByNicoNo($id);
+            $response = \Response::json($nicoComic, 200);
         } catch (\Exception $e) {
             $response = \Response::json(array(
                 'status' => false,
